@@ -112,7 +112,7 @@ But we get the results for this, let’s try to guess what we’ll find. From wh
 
 We can prove this, let’s think about what it would mean for both x outputs to be `1`. We know that an x output of `1` for one qubit must mean that the z output of the other is `0` \(because Fact 2 tells us that both these outputs being `1` is impossible\). So if the x output of both qubits is `1`, it means that the z outputs of both qubits must be `0`.
 
-This leads us to a contradiction: from Fact 1 we know that the z outputs of the qubits cannot both be `0`. So to avoid this impossible thing, we find that it must also be impossible for both x outputs to be `0`.
+This leads us to a contradiction: from Fact 1 we know that the z outputs of the qubits cannot both be `0`. So to avoid this impossible thing, we find that it must also be impossible for both x outputs to be `1`.
 
 From Facts 1 and 2, we have therefore deduced Fact 3.
 
