@@ -1,6 +1,6 @@
 # The atoms of computation
 
-Programming a quantum computer is now something that anyone can do in the comfort of their own home. The simplest way is to use [the composer](introduction-to-the-composer.md)_._ This lets you construct programs with a graphical interface, and then run them on real devices in the IBM Research labs.
+Programming a quantum computer is now something that anyone can do in the comfort of their own home. The simplest way is to use the composer_._ This lets you construct programs with a graphical interface, and then run them on real devices in the IBM Research labs.
 
 Once you've headed over to the website and set up your account, you’ll be given a blank canvas on which to create something quantum.
 
