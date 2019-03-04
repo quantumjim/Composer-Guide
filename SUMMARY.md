@@ -7,7 +7,4 @@
 * [The weird and wonderful world of the qubit](the-weird-and-wonderful-world-of-the-qubit/README.md)
   * [Getting to know your qubits](the-weird-and-wonderful-world-of-the-qubit/writing-down-qubit-states.md)
   * [Creating superpositions](the-weird-and-wonderful-world-of-the-qubit/creating-superpositions.md)
-* [The weird and wonderful world of the qubit](the-weird-and-wonderful-world-of-the-qubit-1/README.md)
-  * [Getting to know your qubits](the-weird-and-wonderful-world-of-the-qubit-1/getting-to-know-your-qubits.md)
-  * [Creating superpositions](the-weird-and-wonderful-world-of-the-qubit-1/creating-superpositions.md)
 
