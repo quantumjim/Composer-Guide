@@ -1,6 +1,12 @@
+---
+description: >-
+  As with most things, we need mathematics to study qubits properly. In this
+  section we'll look at how to represent their state using vectors.
+---
+
 # Writing down qubit states
 
-As we've seen, there are multiple ways to extract an output from a qubit. The two methods we've use so far are the z and x measurements.
+In the previous section we've seen that there are multiple ways to extract an output from a qubit. The two methods we've used so far are the z and x measurements.
 
 ```text
 // z measurement of qubit 0
@@ -312,5 +318,13 @@ $$
 (p^z_0-p^z_1)^2 + (p^y_0-p^y_1)^2 + (p^x_0-p^x_1)^2 = 1.
 $$
 
-For more than one qubit, however, we'll find more ways to move the uncertainty around. This will again downgrade the above equation to an inequality. But that's a story for another article.
+This will always hold for any isolated qubit. As long as it does not interact with other qubits or suffer noise, the certainty will be conserved in this way.
+
+
+
+
+
+
+
+
 
