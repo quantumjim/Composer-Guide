@@ -218,9 +218,9 @@ $$
 (p^z_0-p^z_1)^2 + (p^x_0-p^x_1)^2 = 1
 $$
 
-This is a version of Heisenberg's famous uncertainty principle. The $$(p^z_0-p^z_1)^2$$ term measures how certain the qubit is about the outcome of a z measurement. It is 1 if either outcome is certain, and 0 when both are equally likely. The $$(p^x_0-p^x_1)^2$$ term measures the same for the x measurement. Their sum is the total certainty of the two combinbed. Given that this total certainty always takes the same value, we find that certainty  limited and conserved resource.
+This is a version of Heisenberg's famous uncertainty principle. The $$(p^z_0-p^z_1)^2$$ term measures how certain the qubit is about the outcome of a z measurement.. The $$(p^x_0-p^x_1)^2$$ term measures the same for the x measurement. Their sum is the total certainty of the two combined. Given that this total always takes the same value, we find that certainty limited and conserved resource.
 
-The above is not actually entirely true, as you'd soon see by trying any of the operations below
+The above is not actually entirely true, as you'll soon see by trying any of the operations below
 
 ```text
 s q[0]; \\ the s gate
@@ -228,9 +228,89 @@ sdg q[0]; \\ the inverse of the s gate
 u3(theta,0,0) q[0]; \\ y rotation
 ```
 
-For a circuit with a single `u3(pi/2,0,0)`, for example, we find that $$(p^z_0-p^z_1)^2 + (p^x_0-p^x_1)^2=0$$ . This makes it seem like our certainty has all been removed this operation. But  a circuit where we do `u3(pi/2,0,0)` twice is back to obeying $$(p^z_0-p^z_1)^2 + (p^x_0-p^x_1)^2=1$$. So this operation does not destroy our certainty. It simply moves it back and forwards between and z and x measurements and somewhere else. So let's find out where it goes.
+For a circuit with a single `u3(pi/2,0,0)`, for example, we find that $$(p^z_0-p^z_1)^2 + (p^x_0-p^x_1)^2=0$$. It seems to have reduced our total certainty to zero.
 
-### The y basis
+All is not lost, though. We simply need to add another `u3(pi/2,0,0)` to our circuit to go back to obeying $$(p^z_0-p^z_1)^2 + (p^x_0-p^x_1)^2=1$$. It seems that this operation does not destroy our certainty. It simply moves it back and forwards between the z and x measurements and somewhere else. So let's find this somewhere else
 
+### The y basis \(part 1\)
 
+There are infinitely many ways that we can measure a qubit, but the z and x measurements have special relationship with each other. We say that they are _mutually unbiased_. This simply means that the states that are certain for one are completely random for the other.
+
+At the end of the last section, it seemed that we were missing a piece of the puzzle. We need another type of measurement to plug the gap in our total certainty, and it makes sense to look for one that is also mutually unbiased with x and z.
+
+The first step is to find a state that seems random to both x and z measurements. Let's call it $$|\circlearrowleft\rangle$$, for no apparent reason.
+
+$$
+|\circlearrowleft\rangle = a_0 | 0 \rangle + a_1 | 1 \rangle
+$$
+
+Now the job is to find the right values for $$a_0$$ and $$a_1$$. You could try to do this with standard positive nad negative numbers, but you'll never be able to find a state that is random for both x and z measurements. To achieve this, we need to use complex numbers.
+
+### Complex numbers
+
+Hopefully you've come across complex numbers before, but here is a quick reminder. We start by accepting the fact that $$-1$$ has a square root, and that its name is $$i$$. Any complex number can then be written
+
+$$
+x = x_r + i~x_i
+$$
+
+Here $$x_r$$ and $$x_i$$ are both normal numbers \(positive or negative\), with $$x_r$$ known as the real part and $$x_i$$ as the imaginary part.
+
+For every real number $$x$$ there is a corresponding complex conjugate $$x^*$$ 
+
+$$
+x^* = x_r - i~x_i
+$$
+
+Multiplying a $$x$$ by $$x^*$$ gives us a real number. It's most useful to write this as
+
+$$
+|x| = \sqrt{x~x^*}.
+$$
+
+Here $$|x|$$ is a real number known as the magnitude of $$x$$ \(or, equivalently, of $$x^*$$\).
+
+If we are going to allow the numbers in our quantum states to be complex, we'll need to upgrade some of our equations.
+
+First, we need to ensure that the inner product of a state with itself is always 1. To do this the bra and ket versions of the same state must be defined as follows
+
+$$
+|a\rangle = \begin{pmatrix} a_0 \\ a_1 \end{pmatrix}, ~~~ \langle a| =  \begin{pmatrix} a_0^* & -a_1^* \end{pmatrix}.
+$$
+
+Then we just need a small change to the Born rule, were we square the magnitudes of inner products rather than just the inner products themselves.
+
+$$
+p_0^z(|a\rangle) = |~\langle0|a\rangle~|^2,\\
+p_1^z(|a\rangle) = |~\langle1|a\rangle~|^2,\\
+p_0^x(|a\rangle) = |~\langle+|a\rangle~|^2,\\
+p_1^x(|a\rangle) = |~\langle-|a\rangle~|^2.
+$$
+
+The irrelavance of the global phase also needs an upgrade. Before we only talked about multiplying by -1. In fact, we can multiply a statec by any complex number whose magnitide is 1. This will give us a state that will look different, but which is actually completely equivalent. This includes multiplying by $$i$$, $$-i$$ or infinitely many other possibilities.
+
+### The y basis \(part 2\)
+
+Now we have complex numbers, we can define the following pair of states.
+
+$$
+|\circlearrowleft\rangle = \frac{ | 0 \rangle + i | 1 \rangle}{\sqrt{2}}\\|\circlearrowright\rangle = \frac{ | 0 \rangle -i | 1 \rangle}{\sqrt{2}}
+$$
+
+You can verify yourself that they both give random outputs for x and z matrices. They are also orthogonal to each other. So they define a new measurement, and that basis is mutally unbiased with x and z. This is the third and final fundamental measurement for a single qubit. We call it the y measurement, and can implement it with
+
+```text
+// y measurement of qubit 0
+h q[0];
+sdg q[0];
+measure q[0] -> c[0];
+```
+
+With the x, y and z measurements, we now have everything covered. Whatever operations we apply, a single qubit will always obey
+
+$$
+(p^z_0-p^z_1)^2 + (p^y_0-p^y_1)^2 + (p^x_0-p^x_1)^2 = 1.
+$$
+
+For more than one qubit, however, we'll find more ways to move the uncertainty around. This will again downgrade the above equation to an inequality. But that's a story for another article.
 
