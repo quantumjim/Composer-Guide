@@ -6,5 +6,5 @@ At IBM, our goal is to introduce you to the quantum world through our tutorials,
 
 In this guide we'll introduce quantum concepts through quantum programming. Specifically, we'll focus on the basic unit of quantum computation: the _circuit_. This simplest way to create and run these is using our tool known as the composer. This allows you to create circuits in a visual way, by dragging and dropping quantum operations. You can also write them directly using the OpenQASM quantum assembly language. To get started, just click on the link at the bottom of the page.
 
-If you'd rather learn about Qiskit, which provides powerful tools for creating, manipulating and combining circuits, see the guide here.
+If you'd rather learn about Qiskit, which provides powerful tools for creating, manipulating and combining circuits, see the guide [here](https://learnqiskit.gitbook.io).
 
