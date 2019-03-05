@@ -1,4 +1,4 @@
-# Creating superpositions
+# Implementing measurements
 
 In the last section, we talked about superposition states. Now it is time to make one. The simplest way to do this is with the Hadamard gate, $$H$$. In the Composer, this is the blue gate labeled $$H$$.
 

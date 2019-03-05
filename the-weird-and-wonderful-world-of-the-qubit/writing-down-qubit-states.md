@@ -1,4 +1,4 @@
-# The basics of qubits
+# Qubits as physical systems
 
 To understand how a quantum program works, step-by-step, we need some way of writing down what is happening. We need to be able to write down the state of the qubits at any point in the computation. We need to write down the operations we perform on our qubits such that we can see the effects they'll have. In this section we introduce the notation used to write down qubit states using vectors.
 
