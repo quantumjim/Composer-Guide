@@ -17,28 +17,26 @@ The first thing we need to know about is the idea of _bits_. These are designed 
 One example is numbers. In European languages, numbers are usually represented using a string of the the ten digits 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9. In this string of digits, each represents how many times the number contains a certain powers of ten. For example, when we write 9213, we mean
 
 $$
-a = b
-$$
-
-$$
-a = b
-$$
-
 9000 + 200 + 10 + 3
+$$
 
 or, expressed in a way that emphasizes the powers of ten
 
-9×10³ + 2×10² + 1×10¹ + 3×10⁰
+$$
+9×10^3 + 2×10^2 + 1×10^1 + 3×10^0
+$$
 
 Though we usually use this system based on the number 10, we can just as easily use one based on any other number. The binary number system, for example, is based on the number two. This means using the two characters 0 and 1 to express numbers as multiples of powers of two. For example, 9213 becomes 10001111111101, since
 
-9213 = 1×8192 + 0×4096 + 0×2048+ 0×1024 +1×512 + 1×256 + 1×128 + 1×64 + 1×32 + 1×16 + 1×8 + 1×4 + 0×2 + 1×1
+$$
+9213 = 1×8192 + 0×4096 + 0×2048+ 0×1024 +1×512 + 1×256\\~~~~~~~~~~~~~~ + 1×128 + 1×64 + 1×32 + 1×16 + 1×8 + 1×4 + 0×2 + 1×1
+$$
 
-Here these numbers are all powers of 2 \(8=2³, 4096=2¹² etc\).
+Here these numbers are all powers of 2 \( $$8=2^3$$, $$4096=2^{12}$$ etc\).
 
 A string of bits is called a _binary string._ From now on, we’ll write them in a special font to avoid confusion.
 
-9213 = `10001111111101`
+                                                             9213 = `10001111111101`
 
 Binary strings can be used them to represent more than just numbers. For example, there is a way to represent any text using bits. For any letter, number or punctuation mark you want to use, you can find a corresponding string of at most eight bits using [this table](https://www.ibm.com/support/knowledgecenter/en/ssw_aix_72/com.ibm.aix.networkcomm/conversion_table.htm). This choice is quite arbitrary, but it is a widely agreed upon standard, and was used to transmit this article to you through the internet.
 
@@ -64,7 +62,7 @@ Now our computer outputs the string `10000000` instead.
 
 ![](../.gitbook/assets/10000000.png)
 
-The bit we flipped, which comes from qubit 7, lives on the far left of the string. This is because the composer numbers the bits in a string from left to right. If this convention seems odd to you, don’t worry. It seems odd to lots of other people too, and some prefer to number their bits the other way around. But this system certainly has its advantages when we are using the bits to represent numbers. This is because means that qubit 7 is telling us about how many 2⁷s we have in our number. So by flipping this bit, we’ve now written the number 128 in our simple 8-bit computer.
+The bit we flipped, which comes from qubit 7, lives on the far left of the string. This is because the composer numbers the bits in a string from left to right. If this convention seems odd to you, don’t worry. It seems odd to lots of other people too, and some prefer to number their bits the other way around. But this system certainly has its advantages when we are using the bits to represent numbers. This is because means that qubit 7 is telling us about how many $$2^7$$s we have in our number. So by flipping this bit, we’ve now written the number 128 in our simple 8-bit computer.
 
 Now try out writing another number for yourself. You could do your age, for example. Just use Google to find out what the number looks like in binary \(if it includes a ‘0b’, just ignore it\), and then add some `0`s to the left side if you are younger than 64.
 
@@ -141,7 +139,7 @@ Our first task is to do the `1+0` for the column on the right. In binary, as in 
 =  ????????????11
 ```
 
-Next we have `1+1`. As you’ll surely be aware, 1+1=2. In binary, the number 2 is written `10`, and so requires two bits. This means that we need to carry the `1`.
+Next we have `1+1`. As you’ll surely be aware, 1+1=2. In binary, the number 2 is written `10`, and so requires two bits. This means that we need to carry the `1`, just as we would for the number 10 in decimal.
 
 ```text
    10001111111101
@@ -150,7 +148,7 @@ Next we have `1+1`. As you’ll surely be aware, 1+1=2. In binary, the number 2 
 =  ???????????011
 ```
 
-The next column now requires us to calculate `1+1+1.` This means adding three numbers together, so things are getting complicated for our computer. But we can just break things down into smaller chunks again. To do it in a way that only ever requires us to add two bits together, we can start with just the first two `1`s.
+The next column now requires us to calculate `1+1+1.` This means adding three numbers together, so things are getting complicated for our computer. But we can still compile it down to simpler operations, and do it in a way that only ever requires us to add two bits together. For this we can start with just the first two `1`s.
 
 ```text
    1
@@ -182,13 +180,13 @@ So now we have another `1+1+1` to do. But we already know how to do that, so it�
 In fact, everything left so far is something we already know how to do. This is because, if you break everything down into adding just two bits, there’s only four possible things you’ll ever need to calculate. Here are the four basic sums \(we’ll write all the answers with two bits to be consistent\).
 
 ```text
-0+0 = 00
-0+1 = 01
-1+0 = 01
-1+1 = 10
+0+0 = 00 (in decimal, this is 0+0=0)
+0+1 = 01 (in decimal, this is 0+1=1)
+1+0 = 01 (in decimal, this is 1+0=1)
+1+1 = 10 (in decimal, this is 1+1=2)
 ```
 
-If our computer can do these, it can add anything. This is called a _half adder_. Let’s make one with the composer.
+This is called a _half adder_. If our computer can implement this, and if it can chain many of them together, it can add anything. Let’s make one with the composer.
 
 ### Adding with the composer
 
