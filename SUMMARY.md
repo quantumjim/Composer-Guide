@@ -11,4 +11,9 @@
   * [Quantum gates](the-weird-and-wonderful-world-of-the-qubit/quantum-gates.md)
   * [Implementing measurements](the-weird-and-wonderful-world-of-the-qubit/creating-superpositions.md)
   * [Qubits as physical systems](the-weird-and-wonderful-world-of-the-qubit/writing-down-qubit-states.md)
+* [Universality of quantum computation](universality-of-quantum-computation/README.md)
+  * [Fun with matrices](universality-of-quantum-computation/universality.md)
+  * [The standard gate set](universality-of-quantum-computation/the-standard-gate-set.md)
+  * [The meaning of universality](universality-of-quantum-computation/the-meaning-of-universality.md)
+  * [Proving universality](universality-of-quantum-computation/proving-universality.md)
 
