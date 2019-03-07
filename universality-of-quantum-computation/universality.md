@@ -1,10 +1,6 @@
----
-description: >-
-  Manipulating matrices is the heart of how we analyse quantum programs. In this
-  section we'll look at some of the most common tools that can use for this.
----
-
 # Fun with matrices
+
+Manipulating matrices is the heart of how we analyse quantum programs. In this section we'll look at some of the most common tools that can use for this.
 
 ### Unitary and Hermitian matrices
 

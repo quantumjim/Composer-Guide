@@ -1,10 +1,6 @@
----
-description: >-
-  In this section we'll further develop the topics introduced in the last, and
-  introduce a useful visualization of single qubit states.
----
-
 # Pauli matrices and the Bloch sphere
+
+In this section we'll further develop the topics introduced in the last, and introduce a useful visualization of single qubit states.
 
 ### Pauli matrices
 
