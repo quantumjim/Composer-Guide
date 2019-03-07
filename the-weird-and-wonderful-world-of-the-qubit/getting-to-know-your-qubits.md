@@ -29,9 +29,7 @@ These two states are completely mutually exclusive. Either the qubit definitely 
 
 One way to represent this with mathematics is using two orthogonal vectors.
 
-$$
-|0\rangle = \begin{pmatrix} 1 \\ 0 \end{pmatrix} ~~~~ |1\rangle =\begin{pmatrix} 0 \\ 1 \end{pmatrix}.
-$$
+![][http://latex.codecogs.com/gif.latex?|0\rangle = \begin{pmatrix} 1 \\ 0 \end{pmatrix} ~~~~ |1\rangle =\begin{pmatrix} 0 \\ 1 \end{pmatrix}.]
 
 This is a lot of notation to take in all at once. First let's unpack the weird $$|$$ and  $$\rangle$$ . Their job is essentially just to remind us that we are talking about the vectors that represent qubit states labelled $$0$$ and $$1$$. This helps us distinguish them from things like the bit values `0` and `1` or the numbers 0 and 1. It is part of the bra-ket notation, introduced by Dirac.
 
