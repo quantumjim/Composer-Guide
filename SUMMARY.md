@@ -1,9 +1,9 @@
 # Table of contents
 
 * [Welcome to quantum](README.md)
-* [Getting started with the composer](getting-started-with-the-composer/README.md)
-  * [The atoms of computation](getting-started-with-the-composer/chapter-1-the-atoms-of-computation.md)
-  * [The unique properties of qubits](getting-started-with-the-composer/chapter-2-the-unique-properties-of-qubits.md)
+* [Getting started with quantum circuits](getting-started-with-quantum-circuits/README.md)
+  * [The atoms of computation](getting-started-with-quantum-circuits/chapter-1-the-atoms-of-computation.md)
+  * [The unique properties of qubits](getting-started-with-quantum-circuits/chapter-2-the-unique-properties-of-qubits.md)
 * [The weird and wonderful world of the qubit](the-weird-and-wonderful-world-of-the-qubit/README.md)
   * [Writing down qubit states](the-weird-and-wonderful-world-of-the-qubit/getting-to-know-your-qubits.md)
   * [Pauli matrices and the Bloch sphere](the-weird-and-wonderful-world-of-the-qubit/the-bloch-sphere.md)

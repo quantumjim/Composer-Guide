@@ -4,6 +4,10 @@ Programming a quantum computer is now something that anyone can do in the comfor
 
 Once you've headed over to the website and set up your account, you’ll be given a blank canvas on which to create something quantum.
 
+{% hint style="danger" %}
+Screenshots might not reflect the most recent version of the composer.
+{% endhint %}
+
 ![](../.gitbook/assets/blank.png)
 
 But what to create? What is a quantum program anyway? In fact, what is a quantum computer?

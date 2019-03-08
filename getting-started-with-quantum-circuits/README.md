@@ -1,4 +1,4 @@
-# Getting started with the composer
+# Getting started with quantum circuits
 
 This guide will help you understand what it means to program quantum computers. It will guide you to a point where you can do interesting and useful things with IBM's composer, a simple graphical interface for creating quantum programs.
 

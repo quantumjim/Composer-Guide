@@ -148,7 +148,7 @@ From this gate, the Hadamard is done by $$H= U_2(0,\pi)$$ . In IBMQ hardware, th
 
 To create quantum algorithms that beat their classical counterparts, we need more than isolated qubits. We need ways for them to interact. This is done by multiqubit gates.
 
-The most prominent multiqubit gates are the two qubit CNOT and the three qubit Toffoli. These have already been introduced in [The atoms of computation](../getting-started-with-the-composer/chapter-1-the-atoms-of-computation.md). These essentially perform reversible versions of the classical XOR and AND gates, respectively.
+The most prominent multiqubit gates are the two qubit CNOT and the three qubit Toffoli. These have already been introduced in [The atoms of computation](../getting-started-with-quantum-circuits/chapter-1-the-atoms-of-computation.md). These essentially perform reversible versions of the classical XOR and AND gates, respectively.
 
 ```text
 cx q[0],q[1];       \\ CNOT controlled on qubit 0 with qubit 1 as target
