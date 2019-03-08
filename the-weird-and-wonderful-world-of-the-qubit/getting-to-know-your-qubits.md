@@ -6,7 +6,7 @@ description: >-
 
 # Writing down qubit states
 
-In the previous section we've seen that there are multiple ways to extract an output from a qubit. The two methods we've used so far are the z and x measurements.
+In the previous chapter we've seen that there are multiple ways to extract an output from a qubit. The two methods we've used so far are the z and x measurements.
 
 ```text
 // z measurement of qubit 0
@@ -300,7 +300,7 @@ The irrelavance of the global phase also needs an upgrade. Before we only talked
 Now we have complex numbers, we can define the following pair of states.
 
 $$
-|\circlearrowleft\rangle = \frac{ | 0 \rangle + i | 1 \rangle}{\sqrt{2}}\\|\circlearrowright\rangle = \frac{ | 0 \rangle -i | 1 \rangle}{\sqrt{2}}
+|\circlearrowright\rangle = \frac{ | 0 \rangle + i | 1 \rangle}{\sqrt{2}}\\|\circlearrowleft\rangle = \frac{ | 0 \rangle -i | 1 \rangle}{\sqrt{2}}
 $$
 
 You can verify yourself that they both give random outputs for x and z matrices. They are also orthogonal to each other. So they define a new measurement, and that basis is mutally unbiased with x and z. This is the third and final fundamental measurement for a single qubit. We call it the y measurement, and can implement it with
