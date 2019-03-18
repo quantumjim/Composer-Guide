@@ -74,13 +74,13 @@ u1(theta) q[0];       \\ rz rotation on qubit 0
 Let's focus on $$R_x(\theta)$$. As we saw in the last section, any unitary can be expressed in an exponential form using a Hermitian matrix. For this gate, we find
 
 $$
-R_x(\theta) = e^{i \theta X}.
+R_x(\theta) = e^{i \frac{\theta}{2} X}.
 $$
 
 The last section also showed us that the unitary and its corresponding Hermitian matrix have the same eigenstates. In this section, we've seen that conjugation by a unitary transforms eigenstates and leaves eigenvalues unchanged. With this in mind, it can be shown that
 
 $$
-U R_x(\theta)U^\dagger = e^{i \theta ~U X U^\dagger}.
+U R_x(\theta)U^\dagger = e^{i \frac{\theta}{2} ~U X U^\dagger}.
 $$
 
 By conjugating this rotation by a Clifford, we can therefore transform it to the same rotation around another axis. So even if we didn't have a direct way to perform  $$R_y(\theta)$$ and  $$R_z(\theta)$$, we could do it with $$R_x(\theta)$$combined with Clifford gates. This technique of boosting the power of non-Clifford gates by combing them with Clifford gates is one that we make great use of in quantum computing.
