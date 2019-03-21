@@ -15,6 +15,6 @@
   * [The standard gate set](universality-of-quantum-computation/the-standard-gate-set.md)
   * [The meaning of universality](universality-of-quantum-computation/the-meaning-of-universality.md)
   * [Proving universality](universality-of-quantum-computation/proving-universality.md)
-* [Quantum Algorithms](quantum-algorithms/README.md)
+* [Putting gates to use](quantum-algorithms/README.md)
   * [Basic circuit identities](quantum-algorithms/basic-circuit-identities.md)
 

@@ -1,2 +1,2 @@
-# Quantum Algorithms
+# Putting gates to use
 

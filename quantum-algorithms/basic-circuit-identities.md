@@ -31,6 +31,43 @@ h q[t];
 
 The same trick can be used to transform a `cx` into a `cz`.
 
+### Swapping Qubits
+
+Sometimes, we need to move information around in a quantum computer. For some ways of implementing qubits, this could be done by physically moving them. Another option is simply to move the state between two qubits. This is done by the SWAP gate.
+
+```text
+\\ swaps states of qubits a and b
+swap q[a], q[b];
+```
+
+To see how we might make this, let's consider a few examples
+
+ First, we'll look at the case that qubit a is in state $$|1\rangle$$ and qubit b is in state $$|0\rangle$$. For this we'll apply the following gates
+
+```text
+\\ swap a 1 from a to b
+cx q[a], q[b]; \\ copies 1 from a to b
+cx q[b], q[a]; \\ uses the 1 on b to rotate a to 0
+```
+
+This has the effect of giving is the state where it is now qubit b in state $$|1\rangle$$ and qubit a in state $$|0\rangle$$. In this case at least, we have done a SWAP.
+
+Now let's take this state and SWAP back to the original one. Clearly, we can do this with the reverse of the above process
+
+```text
+\\ swap a q from b to a
+cx q[b], q[a]; \\ copies 1 from b to a
+cx q[a], q[b]; \\ uses the 1 on a to rotate b to 0
+```
+
+Note that in these two processes, the first gate of one would have no effect on the initial state of the other. For example, when we swap the $$|1\rangle$$ a to b, the first gate is `cx q[a], q[b]`. If this were instead applied to a state where no$$|1\rangle$$ was initially on a, it would have no effect.
+
+Note also that for these two process, the final gate of one would have no effect on the final state of the other. For example, the final `cx q[b], q[a]` that is required when we swap the$$|1\rangle$$ from a to b has no effect on the state where the $$|1\rangle$$ is not on b.
+
+
+
+
+
 ### Making the CXs we need from CXs we have
 
 The gates in any quantum computer are driven by the physics of the underlying system. In IBMQ devices, the physics behind `cx`s means that they cannot be directly applied to all possible pairs of qubits. For those pairs for which a `cx` can be applied, it typically has a particular orientation. So one specific qubit must act as control, and the other must act as the target, without allowing us to choose.
@@ -51,7 +88,19 @@ has exactly the same effect as
 cz q[t], q[c];
 ```
 
-This means we can interpret either one as the control, and the other as the target. This might seem strange, since it means we can apply two, seemingly contradictory interpretations to the same gate. But try it out, and you'll find that it's true.
+This means that we can think of either either one as the control, and the other as the target.
+
+To see why this is true, let's remind ourselves of what the Z gate is,
+
+$$
+Z= \begin{pmatrix} 1&0 \\ 0&-1 \end{pmatrix}.
+$$
+
+We can think of this as multiplying the state by $$-1$$, but only when it is $$|1\rangle$$.
+
+For a CZ gate, the control qubit must be in state $$|1\rangle$$for a Z to be applied to the target qubit. Given the above property of Z, this only has an effect when the target is in state $$|1\rangle$$. We can therefore simply think of the CZ gate as one which multiplies the state of two qubits by $$-1$$, but only when they are in the state is $$|11\rangle$$.
+
+This new interpretation is phrased in a perfectly symmtric way, and so shows that the labels of 'control' and 'target' are not necessary for this gate.
 
 This property gives us a way to reverse the orientation of a `cx`. We can first turn the `cx` into a `cz` by using the method described earlier: placing an `h` both before and after on the target qubit.
 
@@ -62,7 +111,7 @@ cx q[c], q[t];
 h q[t];
 ```
 
-Then since we are free to choose which way around to think of the action of a `cz`, we can choose to simply start thing of `t` as the control and `c` as the target. Next we can transform this `cz` into a `cx`. We just need to place an `h` both before and after on the target qubit, which we now think of as qubit `c`.
+Then since we are free to choose which way around to think of the action of a `cz`, we can choose to simply start thinking of `t` as the control and `c` as the target. Then we can transform this `cz` into a corresponding `cx`. We just need to place an `h` both before and after on the target qubit \(which is now qubit `c`\).
 
 ```text
 // a cx with control qubit t and target qubit c
@@ -75,9 +124,9 @@ h q[c];
 
 And there we have it: we've turned around the `cx`. All that is needed is an `h` on both qubits before and after.
 
-If you are happy with this explanation, you can now skip ahead. If you'd rather see the maths behind the magic, read on.
+The rest of this subsection is dedicated to another explantion of how to turn around a CX, with a bit more math and some different insight. Feel free to skip over it.
 
-One way to write the `cx` is
+Here is another way to write the CX gate
 
 $$
 {\rm CX}_{c,t} = |0\rangle\langle0| \otimes I + |1\rangle\langle1| \otimes X.
