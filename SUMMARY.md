@@ -17,4 +17,6 @@
   * [Proving universality](universality-of-quantum-computation/proving-universality.md)
 * [Putting gates to use](quantum-algorithms/README.md)
   * [Basic circuit identities](quantum-algorithms/basic-circuit-identities.md)
+  * [Entanglement and Bell Tests](quantum-algorithms/entanglement-and-bell-tests.md)
+  * [GHZ States](quantum-algorithms/ghz-states.md)
 
