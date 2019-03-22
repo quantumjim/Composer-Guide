@@ -2,7 +2,7 @@
 
 When we program quantum computers, our aim is always to build useful quantum circuits from the basic building blocks. But sometimes, we might not have all the basic building blocks we want. In this section, we'll look at how we can transform basic gates to each other, and how to use them to build some gates that are slightly more complex \(but still pretty basic\).
 
-
+Many of the techniques discussed in this chapter where first proposed in [Barenco, et al. 1995](https://journals.aps.org/pra/abstract/10.1103/PhysRevA.52.3457?cm_mc_uid=43781767191014577577895&cm_mc_sid_50200000=1460741020).
 
 ### Making a CZ from a CX
 
@@ -272,6 +272,81 @@ cx q[c], q[t];
 If the control qubit is in state $$|0\rangle$$, all we have here is a `u3(theta/2,0,0)` immediately followed by its inverse, `u3(-theta/2,0,0)`. The end effect is trivial. If the control qubit is in state $$|1\rangle$$, however, the `u3(-theta/2,0,0)` is effectively preceded and followed by an X gate. This has the effect of flipping the direction of the y rotation and making a second `u3(theta/2,0,0)`. The net effect in this case is therefore to make a controlled version of the rotation $$R_y(\theta)$$ . 
 
 This method works because the x and y axis are orthogonal, which causes the x gates to flip the direction of the rotation. It therefore similarly works to make a controlled $$R_z(\theta)$$ . A controlled $$R_x(\theta)$$ could similarly be made using CX gates.
+
+We can also make a controlled version of any single qubit rotation, $$U$$. For this we simply need to find three rotations A, B and C and a phase $$\alpha$$ such that
+
+$$
+ABC = I, ~~~e^{i\alpha}AXBXC = U
+$$
+
+We then use CX gates to cause the first of these relations to happen whenever the control is in state $$|0\rangle$$, and the second to happen when the control is state $$|1\rangle$$. An $$R_z(\alpha)$$ rotation is also used on the control to get the right phase, which will be important whenever there are superposition states.
+
+```text
+a q[t];
+cx q[c], q[t];
+b q[t];
+cx q[c], q[t];
+c q[t];
+u1(alpha) q[c];
+```
+
+![](../.gitbook/assets/zzzabc.png)
+
+Here a, b and c are gates that implement A, B and C, and must be defined via a subroutine. For example, if we wanted A to be $$R_x(\pi/4)$$, the subroutine would be defined as
+
+```text
+gate a qubit
+{
+        u3(pi/4,pi/2,-pi/2) qubit;
+}
+```
+
+### The Toffoli
+
+The Toffoli gate is a three qubit gate with two controls and one target. It performs an X on the target only if both controls are in the state $$|0\rangle$$. The final state of the target is then equal to either the AND or the NAND of the two controls, depending on whether the initial state of the target was $$|0\rangle$$ or $$|1\rangle$$. Toffoli can also be thought of a controlled-controlled-NOT, and is also called the CCX gate.
+
+```text
+ccx q[c], q[t];
+```
+
+To see how to build it from single and two qubit gates it is actually easiest to show how to build something even more general: an arbitary controlled-controlled-U for any single qubit rotation U. For this we need to define controlled versions of $$V = \sqrt{U}$$ and $$V^\dagger$$. In the OpenQASM code below, we assume that subroutines `cv` and `cvdg` have been defined for these, respectively. The controls are qubits a and b, and the target is qubit t.
+
+```text
+cv q[b], q[t];
+cx q[a], q[b];
+cvdg q[b], q[t];
+cx q[a], q[b];
+cv q[a], q[t];
+```
+
+![](../.gitbook/assets/zzzuv.png)
+
+By tracing through each value of the two control qubits, you can convince yourself that a Ugate is applied to the target qubit if and only if both controls are 1. Using ideas we have already described, you could now implement each controlled-Vgate to arrive at some circuit for the doubly-controlled-Ugate. It turns out that the minimum number of CNOT gates required to implement the Toffoli gate is 6 \[[Shende and Markov, 2009](http://dl.acm.org/citation.cfm?id=2011799)\].
+
+![](../.gitbook/assets/zzzttt.png)
+
+The Toffoli is not th unique way to implement an AND gate with quantum computing. We could also define other gates that have the same effect, but which also introduce relative phases. In these cases, we can implement the gate with fewer CXs.
+
+For example, suppose let's spend a CX to create a controlled-Hadamard.
+
+```text
+gate ch c, t
+{
+        u3(-pi/4,0,0) t;
+        cx c,t;
+        u3(pi/4,0,0) t;
+}
+```
+
+We'll also use the CZ gate, which costs the same as a CX, to implement the following circuit.
+
+```text
+ch q[a], q[t];
+cz q[b], q[t];
+ch q[a], q[t];
+```
+
+For the state $$|00\rangle$$ on the two controls, this does nothing to the target. For $$|11\rangle$$ the target experiences a Z gate that si both preceded and followed by an H. The net effect is an X on the target. For the states $$|01\rangle$$ and $$|10\rangle$$ the target experiences either just the two Hadamards \(which cancel each other out\) or just the Z \(which only induces a relative phase\). This therefore also reproduces the effect of an AND, because the value of the target is only changed for the $$|11\rangle$$ state on the controls. But it does it with the equivalent of just three CX gates.
 
 ### Arbitrary rotations from H and T
 
