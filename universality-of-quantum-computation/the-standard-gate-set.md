@@ -85,6 +85,8 @@ $$
 
 By conjugating this rotation by a Clifford, we can therefore transform it to the same rotation around another axis. So even if we didn't have a direct way to perform  $$R_y(\theta)$$ and  $$R_z(\theta)$$, we could do it with $$R_x(\theta)$$combined with Clifford gates. This technique of boosting the power of non-Clifford gates by combing them with Clifford gates is one that we make great use of in quantum computing.
 
+Certain examples of these rotations have specific names. Rotations by $$\theta = \pi$$ around the x, y and z axes are X, Y and Z, respectively. Rotations by $$\theta = \pm \pi/2$$ around the z axis are S and $$S^†$$, and rotations by $$\theta = \pm \pi/4$$ around the z axis are T and $$T^†$$
+
 ### Composite gates
 
 As another example of combing $$R_x(\theta)$$ with Cliffords, let's conjugate it with a controlled-NOT.

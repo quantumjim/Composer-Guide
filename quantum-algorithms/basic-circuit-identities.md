@@ -2,6 +2,8 @@
 
 When we program quantum computers, our aim is always to build useful quantum circuits from the basic building blocks. But sometimes, we might not have all the basic building blocks we want. In this section, we'll look at how we can transform basic gates to each other, and how to use them to build some gates that are slightly more complex \(but still pretty basic\).
 
+
+
 ### Making a CZ from a CX
 
 The controlled-Z  or `cz` gate is another well used two-qubit gate. Just as the `cx` applies an `x` to its target qubit whenever its control is in state $$|1\rangle$$, the `cz`applies a `z` in the same case. In QASM it can be invoked directly with
@@ -271,5 +273,73 @@ If the control qubit is in state $$|0\rangle$$, all we have here is a `u3(theta/
 
 This method works because the x and y axis are orthogonal, which causes the x gates to flip the direction of the rotation. It therefore similarly works to make a controlled $$R_z(\theta)$$ . A controlled $$R_x(\theta)$$ could similarly be made using CX gates.
 
+### Arbitrary rotations from H and T
 
+The qubits in current devices are subject to noise, which basically consists of gates that are done by mistake. Simple things like temperature, stray magnetic fields or activity on neighbouring qubits can make things happen that we didn't intend.
+
+For large applications of quantum computers, it will be neccesary to encode our qubits in a way that protects them from this noise. This is done by making gates much harder to do by mistake, or to implement in a manner that is slightly wrong.
+
+This is unfortunate for the single qubit rotations  $$R_x(\theta)$$, $$R_y(\theta)$$ and $$R_z(\theta)$$. It is impossible to implent an angle $$\theta$$ with perfect accuracy, such that you are sure that you are not accidentally implementing something like $$\theta + 0.0000001$$. There will always be a limit to the accuracy we can achieve. This will always be larger than is tolarable for large circuits where the imperfections will build up. We will therefore not be able to implement these rotations directly in fault-tolerant quantum computers, but will instead need to build them in a much more deliberate manner.
+
+Fault-tolerant schemes typical perform these rotations using multiple applications of just two gates: H and T.
+
+The T gate can be expressed in OpenQASM as
+
+```text
+t q[0]; // T gate on qubit 0
+```
+
+It is a rotation around the z axis by $$\theta = \pi/4$$, and so be expressed mathematically as $$R_z(\pi/4) = e^{i\pi/4~Z}$$ .
+
+In the following we assume that the H and T gates are effectively perfect. This can be engineered by suitable methods for error correction and fault-tolerance.
+
+Using the Hadamard, and the methods discussed in the last chapter, we can use the T gate to create a similar rotation around the x axis.
+
+```text
+h q[0];
+t q[0];
+h q[0];
+```
+
+Now let's put the two together. Let's make the gate $$R_z(\pi/4)~R_x(\pi/4)$$.
+
+```text
+h q[0];
+t q[0];
+h q[0];
+t q[0];
+```
+
+Since this is a single qubit gate, we can think of it as a rotation around the Bloch sphere. That means that it is a rotation around some axis by some angle. We don't need to think about the axis too much here, but it clearly won't be simply x, y or z. More important is the angle.
+
+The crucial property of the angle for this rotation is that it is irrational. You can prove this yourself with a bunch of math, but you can also see the irrationality in action by applying the gate. Repeating it n times results in a rotation around the same axis by a different angle. Due to to the irrationality, the angles that result from different repetitions will never be the same.
+
+We can use this to our advantage. Each angle will be somewhere between $$0$$ and $$2\pi$$. Let's split this iterval up into $$n$$ slices of width $$2\pi/n$$. For each repetition, the resulting angle will fall in one of these slices. If we look at the angles for the first $$n+1$$ repetitions, it must be true that at least one slice contains two of these angles. Let's use $$n_1$$ to denote the number of repetitions required for the first, and $$n_2$$ for the second.
+
+With this, we can prove something about the angle for $$n_2-n_1$$ repetitions. This is effectively the same as doing $$n_2$$ repetitions, followed by the inverse of $$n_1$$ repetitions. Since the angles for these are not equal \(because of the irrationality\) but also differ by no greater than $$2\pi/n$$ \(because they correspond to the same slice\) the angle for $$n_2-n_1$$ repetitions satisfies
+
+$$
+\theta_{n_2-n_1}  \neq 0, ~~~~-\frac{2\pi}{n}  \leq \theta_{n_2-n_1} \leq \frac{2\pi}{n} .
+$$
+
+We therefore have the ability to do rotations around small angles. We can use this to rotate around angles that are as small as we like, just by increasing the number of times we repeat this gate.
+
+By using many small angle rotations, we can also rotate by any angle we like. This won't always be exact, but it is guaranteed to be accurate up to $$2\pi/n$$, which can be made as small as we like. We therefore now have power over the inaccuracies in our rotations.
+
+So far, we only have the power to do these arbitrary rotations around one axis. For a second axis, we simply do the $$R_z(\pi/4)$$ and $$R_x(\pi/4)$$ rotations in the opposite order.
+
+```text
+h q[0];
+t q[0];
+h q[0];
+t q[0];
+```
+
+The axis that corresponds to this rotation is not the same as that for the gate considered previously. We therefore now have arbitrary rotation around two axes, which can be used to generate any arbitrary rotation around the Bloch sphere. We are back to being able to do everything, though it costs quite a lot of T gates.
+
+It is because of this kind of application that T gates are so prominent in quantum computation. In fact, the complexity of algorithms for fault-tolerant quantum computers is often quoted in terms of how many T gates they'll need. This motivates the quest to achieve things with a few T gates as possible. Note that the discussion above was simply intended to prove that T gates can be use in this way, and does not represent the most efficient method we know.
+
+
+
+ 
 
