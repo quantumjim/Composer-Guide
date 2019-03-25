@@ -1,6 +1,6 @@
 # GHZ States
 
-Perhaps even stranger than Bell states are their three-qubit generalization, the _GHZ states_. An example of one of these states is $$\(\|000\rangle-\|111\rangle\)/\sqrt{2}$$. A circuit to create this is
+Perhaps even stranger than Bell states are their three-qubit generalization, the _GHZ states_. An example of one of these states is $$(|000\rangle-|111\rangle)/\sqrt{2}$$. A circuit to create this is
 
 ```text
 h q[0];
