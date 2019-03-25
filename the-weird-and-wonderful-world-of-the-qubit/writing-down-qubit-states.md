@@ -11,9 +11,6 @@ In the future, quantum programmers will not notice what kind of physical systems
 To see some evidence that $$|0\rangle$$ really is the ground state, try running the QASM below. Here, as in all quantum circuits, the qubit is initially prepared in the ground state $$|0\rangle$$. We then immediately follow this by the standard measurement. From a simulation \(or some cached examples\) you should find that the output always comes out as `0`. For a run on a real device there will be some randomness due to  imperfect measurements and/or residual heating of the qubit, but it should still output `0` with very high probability. 
 
 ```cpp
-OPENQASM 2.0;
-include "qelib1.inc";
-
 // Register declarations
 qreg q[1];
 creg c[1];
@@ -25,9 +22,6 @@ measure q -> c;
 To see what happens for a qubit in state $$|1\rangle$$, we need to be able to change the state of the qubit. This is done with the bit-flip gate, $$X$$, which flips the $$|0\rangle$$ to a  $$|1\rangle$$. Try running it, by implementing the complete QASM file below.
 
 ```cpp
-OPENQASM 2.0;
-include "qelib1.inc";
-
 // Register declarations
 qreg q[1];
 creg c[1];
@@ -79,181 +73,9 @@ One important decoherence process is called _energy relaxation_, where the excit
 
 Measuring $$T_1$$can be done using the composer, but it requires many circuits to be submitted. This is therefore a job that is better suited to the composer's programmatic sibling: [Qiskit](https://learnqiskit.gitbook.io/developers/).
 
-{% hint style="danger" %}
-Qiskit scripts on this page are not compatible with the latest version.
-{% endhint %}
-
-```python
-import numpy as np
-import matplotlib.pyplot as plt
-
-from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister, execute, register
-
-import Qconfig
-register(Qconfig.APItoken, Qconfig.config['url'])
-
-# Define the Quantum and Classical Registers
-q = QuantumRegister(1)
-c = ClassicalRegister(1)
-
-# Build the circuits
-pre = QuantumCircuit(q, c)
-pre.x(q)
-pre.barrier()
-meas = QuantumCircuit(q, c)
-meas.measure(q, c)
-circuits = []
-exp_vector = range(1,51)
-for exp_index in exp_vector:
-    middle = QuantumCircuit(q, c)
-    for i in range(45*exp_index):
-        middle.iden(q)
-    circuits.append(pre + middle + meas)
-
-# Execute the circuits
-shots = 1024
-job = execute(circuits, 'ibmqx4', shots=shots, max_credits=10)
-result = job.result()
-
-# Plot the result
-exp_data = []
-exp_error = []
-for exp_index in exp_vector:
-    data = result.get_counts(circuits[exp_index-1])
-    try:
-        p0 = data['0']/shots
-    except KeyError:
-        p0 = 0
-    exp_data.append(p0)
-    exp_error.append(np.sqrt(p0*(1-p0)/shots))
-
-plt.errorbar(exp_vector, exp_data, exp_error)
-plt.xlabel('time [45*gate time]')
-plt.ylabel('Pr(0)')
-plt.grid(True)
-plt.show()
-```
-
 #### Dephasing and $$T_2$$ 
 
 Dephasing is another decoherence process, and unlike energy relaxation, it affects only superposition states. It can be understood solely in a quantum setting as it has no classical analog. The time constant $$T_2$$ includes the effect of dephasing as well as energy relaxation, and is another crucial figure-of-merit. Again, IBM has some of the world’s best qubits by this metric. Practice with the scripts below to investigate the Ramsey and echo experiments. A Ramsey experiment measures $$T_2^*$$ , which can be affected by slow noise, and the echo experiment removes some of this noise.
-
-Below is a Qiskit script for measuring $$T_2^*$$ \(Ramsey\).
-
-```python
-import numpy as np
-import matplotlib.pyplot as plt
-
-from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister, execute, register
-
-import Qconfig
-register(Qconfig.APItoken, Qconfig.config['url'])
-
-# Define the Quantum and Classical Registers
-q = QuantumRegister(1)
-c = ClassicalRegister(1)
-
-# Build the circuits
-pre = QuantumCircuit(q, c)
-pre.h(q)
-pre.barrier()
-meas_x = QuantumCircuit(q, c)
-meas_x.barrier()
-meas_x.h(q)
-meas_x.measure(q, c)
-circuits = []
-exp_vector = range(1,51)
-phase = 0.0
-for exp_index in exp_vector:
-    middle = QuantumCircuit(q, c)
-    phase = phase + 6*np.pi/len(exp_vector)
-    middle.u1(phase,q)
-    for i in range(5*exp_index):
-        middle.iden(q)
-    circuits.append(pre + middle + meas_x)
-
-# Execute the circuits
-shots = 1024
-job = execute(circuits, 'ibmqx4', shots=shots, max_credits=10)
-result = job.result()
-
-# Plot the result
-exp_data = []
-exp_error = []
-for exp_index in exp_vector:
-    data = result.get_counts(circuits[exp_index-1])
-    try:
-        p0 = data['0']/shots
-    except KeyError:
-        p0 = 0
-    exp_data.append(p0)
-    exp_error.append(np.sqrt(p0*(1-p0)/shots))
-
-plt.errorbar(exp_vector, exp_data, exp_error)
-plt.xlabel('time [5*gate time]')
-plt.ylabel('Pr(+)')
-plt.grid(True)
-plt.show()
-```
-
-Here is a Qiskit script to measure $$T_2$$.
-
-```python
-import numpy as np
-import matplotlib.pyplot as plt
-
-from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister, execute, register
-
-import Qconfig
-register(Qconfig.APItoken, Qconfig.config['url'])
-
-# Define the Quantum and Classical Registers
-q = QuantumRegister(1)
-c = ClassicalRegister(1)
-
-# Build the circuits
-pre = QuantumCircuit(q, c)
-pre.h(q)
-pre.barrier()
-meas_x = QuantumCircuit(q, c)
-meas_x.barrier()
-meas_x.h(q)
-meas_x.measure(q, c)
-circuits = []
-exp_vector = range(1,51)
-for exp_index in exp_vector:
-    middle = QuantumCircuit(q, c)
-    for i in range(15*exp_index):
-        middle.iden(q)
-    middle.x(q)
-    for i in range(15*exp_index):
-        middle.iden(q)
-    circuits.append(pre + middle + meas_x)
-
-
-# Execute the circuits
-shots = 1024
-job = execute(circuits, 'ibmqx4', shots=shots, max_credits=10)
-result = job.result()
-
-# Plot the result
-exp_data = []
-exp_error = []
-for exp_index in exp_vector:
-    data = result.get_counts(circuits[exp_index-1])
-    try:
-        p0 = data['0']/shots
-    except KeyError:
-        p0 = 0
-    exp_data.append(p0)
-    exp_error.append(np.sqrt(p0*(1-p0)/shots))
-
-plt.errorbar(exp_vector, exp_data, exp_error)
-plt.xlabel('time [31*gate time]')
-plt.ylabel('Pr(+)')
-plt.grid(True)
-plt.show()
-```
 
 Because $$T_2$$ is such an important quantity, it is interesting to chart how far the community of superconducting qubits has come over the years. Here is a graph depicting $$T_2$$ versus time over the past two decades.
 

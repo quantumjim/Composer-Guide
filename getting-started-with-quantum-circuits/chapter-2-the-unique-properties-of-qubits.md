@@ -50,19 +50,19 @@ By trying other gates, you might find more complex cases. For example, there are
 
 The uncertainty we see here is essentially what Einstein, Podolsky and Rosen objected too. They thought it meant that quantum mechanics was incomplete. They thought that a qubit always knew what answer it would give to both kinds of measurement. It only seemed random, because of information hidden in the qubits that we could not see. As Einstein said: God does not play dice with the universe.
 
-More recently, some people learning about quantum computing don’t seem to like this uncertainty either. They see it as a bug, when really it is one of the defining features. We need both the certainty and the uncertainty of a qubit. The certainty it is where we can encode the inputs of our computations. But it is the uncertainty that allows qubits to break free of the constraints of classical variables.
+Sometimes people learning about quantum computing don’t seem to like this uncertainty either. They see it as a bug, when really it is one of the defining features. We need both the certainty and the uncertainty of a qubit. The certainty it is where we can encode the inputs of our computations. But it is the uncertainty that allows qubits to break free of the constraints of classical variables.
 
 Before we get carried away, let’s look at some cold, hard data. To prove the unique nature of qubits, we’ll need two of them. With these two qubits, we apply the following circuit.
 
 ![](../.gitbook/assets/hardy.png)
 
-This applied a few gates to the two qubits, including the U3 gate that you’ll find under the advanced options. We won’t explain what each individual gate does for the moment. Instead, we’ll just probe the properties of the end result.
+This applies a few gates to the two qubits, including the $$U_3$$ gate that you’ll find under the advanced options \(and also in later chapters\). We won’t explain what each individual gate does for the moment. Instead, we’ll just probe the properties of the end result.
 
 To do this we need to measure the qubits. First, let’s do a z measurement of each.
 
 ![](../.gitbook/assets/hardy-zz.png)
 
-If you want to follow along yourself, you can set up the above circuit using the graphical editor. Or you can simply copy the following into the qasm editor.
+If you want to follow along yourself, you can set up the above circuit using the graphical editor. Or you can simply copy the following into the QASM editor.
 
 ```text
 include "qelib1.inc";
@@ -104,9 +104,9 @@ Now we’ve tried all combinations of measurements except one: it’s time to lo
 
 ![](../.gitbook/assets/hardy-xx%20%281%29.png)
 
-But we get the results for this, let’s try to guess what we’ll find. From what we know so far, we can prove that it will be impossible for both x outputs to be `1`.
+Before we get the results for this, let’s try to guess what we’ll find. From what we know so far, we can prove that it will be impossible for both x outputs to be `1`.
 
-We can prove this, let’s think about what it would mean for both x outputs to be `1`. We know that an x output of `1` for one qubit must mean that the z output of the other is `0` \(because Fact 2 tells us that both these outputs being `1` is impossible\). So if the x output of both qubits is `1`, it means that the z outputs of both qubits must be `0`.
+To prove this, let’s think about what it would mean for both x outputs to be `1`. We know that an x output of `1` for one qubit must mean that the z output of the other is `0` \(because Fact 2 tells us that both these outputs being `1` is impossible\). So if the x output of both qubits is `1`, it means that the z outputs of both qubits must be `0`.
 
 This leads us to a contradiction: from Fact 1 we know that the z outputs of the qubits cannot both be `0`. So to avoid this impossible thing, we find that it must also be impossible for both x outputs to be `1`.
 
@@ -144,7 +144,7 @@ If you’d rather build up some intuition instead, you could start by playing ar
 * Play the game [_Hello Quantum_](http://helloquantum.mybluemix.net/), which has puzzles based on how to manipulate the z and x outputs using basic gates.
 * Play the sister game: [_Hello Qiskit_](http://ibm.biz/hello-qiskit). This will show you how to use [Qiskit](https://qiskit.org/), our framework for writing quantum programs using standard programming tools.
 
-Whichever path you choose, have fun in the wonderful world of quantum.
+If you want to know more about qubits before starting to play around, simply carry on reading this guide.
 
 
 

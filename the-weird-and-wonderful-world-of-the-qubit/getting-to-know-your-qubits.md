@@ -1,12 +1,6 @@
----
-description: >-
-  As with most things, we need mathematics to study qubits properly. In this
-  section we'll look at how to represent their state using vectors.
----
-
 # Writing down qubit states
 
-In the previous chapter we've seen that there are multiple ways to extract an output from a qubit. The two methods we've used so far are the z and x measurements.
+In the previous chapter we saw that there are multiple ways to extract an output from a qubit. The two methods we've used so far are the z and x measurements.
 
 ```text
 // z measurement of qubit 0
@@ -21,7 +15,7 @@ There are many possible states that our qubits can be in. For some, they might g
 
 ### The z basis
 
-If you do nothing in a circuit but a  measurement, you are certain to get the outcome `0`. This is because the qubits always start in a particular state, and the defining property of that state is that it is certain to output a `0` for a z measurement.
+If you do nothing in a circuit but a  measurement, you are certain to get the outcome `0`. This is because the qubits always start in a particular state. The defining property of that state is that it is certain to output a `0` for a z measurement.
 
 We need a name for this state. Let's be unimaginative and call it $$0$$ . Similarly, there exists a qubit state that is certain to output a `1`. We'll call this $$1 $$.
 
@@ -37,7 +31,7 @@ This is a lot of notation to take in all at once. First let's unpack the weird $
 
 If you are not familiar with vectors, they are essentially just lists of numbers. If we write them as a vertical list, as we have done above, they are called _column vectors_. In Dirac notation, they are also called _kets_.
 
- Horizontal lists are called _row vectors_ or _bras_ in Dirac notation. They are represented with a $$\langle$$ and a $$|$$.
+Horizontal lists are called _row vectors_. In Dirac notation they are _bras_. They are represented with a $$\langle$$ and a $$|$$.
 
 $$
 \langle 0| = \begin{pmatrix} 1 & 0\end{pmatrix} ~~~~ \langle 1| =\begin{pmatrix} 0 & 1 \end{pmatrix}.
@@ -55,10 +49,10 @@ $$
 x \times\begin{pmatrix} a_0 \\ a_1 \end{pmatrix} = \begin{pmatrix} x \times a_0 \\ x \times a_1 \end{pmatrix}
 $$
 
-Multiplying a vector with another vector is a bit more tricky, since there are multiple ways we can do it. For now we just need the so-called 'inner product'. 
+Multiplying a vector with another vector is a bit more tricky, since there are multiple ways we can do it. One is called the 'inner product', and works as follows.
 
 $$
-\begin{pmatrix} a_0 & a_1 \end{pmatrix} \times \begin{pmatrix} b_0 \\ b_1 \end{pmatrix}= a_0~b_0 + a_0~b_1.
+\begin{pmatrix} a_0 & a_1 \end{pmatrix} \begin{pmatrix} b_0 \\ b_1 \end{pmatrix}= a_0~b_0 + a_0~b_1.
 $$
 
 Note that the right hand side of this equation contains only normal numbers being multipled and added in a normal way. The inner product of two vectors therefore yields just a number. As we'll see, we can interpret this as a measure of how similar the vectors are.
@@ -72,13 +66,13 @@ $$
 \langle 0 | 1\rangle = \langle 0 | 1\rangle = 0.
 $$
 
-Here we are using a concise way of writing the inner products where, for example $$\langle 0 | 1 \rangle = \langle 0 | \times | 1 \rangle$$. The top line shows us that the inner product of a state with itself always gives a 1. When done with two orthogonal states, as on the bottom line, we get the outcome 0. These two properties will come in handy later on.
+Here we are using a concise way of writing the inner products where, for example $$\langle 0 | 1 \rangle$$ is the inner product of $$\langle 0 |$$ with $$| 1 \rangle$$. The top line shows us that the inner product of a state with itself always gives a 1. When done with two orthogonal states, as on the bottom line, we get the outcome 0. These two properties will come in handy later on.
 
 ### The x basis \(part 1\)
 
 So far we've looked at states for which the z measurement has a certain outcome. But there are also states for which the outcome of a z measurement is equally likely to be `0` or `1`. What might these look like in the language of vectors?
 
-A good place to start would be something like $$(|0\rangle + |1\rangle)$$ , since this inclues both $$|0\rangle$$and $$|1\rangle$$ with no particular bias towards either. But let's hedge our bets a little and multiply it by some number $$x$$ .
+A good place to start would be something like $$|0\rangle + |1\rangle$$ , since this inclues both $$|0\rangle$$and $$|1\rangle$$ with no particular bias towards either. But let's hedge our bets a little and multiply it by some number $$x$$ .
 
 $$
 x ~ (|0\rangle + |1\rangle) = \begin{pmatrix} x \\ x \end{pmatrix}
@@ -92,7 +86,7 @@ $$
 
 We can get any value for the inner product that we want, just by choosing the appropriate value of $$x$$. So let's choose for the inner product to give the value 1. This is what we got for the inner products of $$|0\rangle$$and $$|1\rangle$$with themselves, so let's make it true for this state too.
 
-This condition is known as the normalization condition, and it results in $$x=\frac{1}{\sqrt{2}}$$ . Now we know what our new state is, so here's a few ways of writing it down.
+This condition is known as the normalization condition. In this case, it results in $$x=\frac{1}{\sqrt{2}}$$ . Now we know what our new state is, so here's a few ways of writing it down.
 
 $$
 \begin{pmatrix} \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \end{pmatrix} = \frac{1}{\sqrt{2}}\begin{pmatrix} 1 \\ 1 \end{pmatrix} = \frac{ |0\rangle + |1\rangle}{\sqrt{2}}
@@ -122,7 +116,9 @@ $$
 p_0^z(|a\rangle) = (~\langle0|a\rangle~)^2.
 $$
 
-If we compared the inner products with $$\langle 1 |$$with the probabilities of the `1` outcome, we'd see a similar relation.
+Here $$|a\rangle$$ represents any generic qubit state.
+
+This property doesn't just hold for the `0` outcome. If we compare the inner products with $$\langle 1 |$$with the probabilities of the `1` outcome, we find a similar relation.
 
 $$
 \\
@@ -133,11 +129,9 @@ The same also holds true for other types of measurement. All probabilities in qu
 
 ### Global and relative phases
 
-States are how we use math to represent what a qubit is doing. With them we can calculate the probabilities of all the possible things that could be measured. These probabilities are essentially all that is physically relevant about a qubit. It is by measuring them that we can determine or verify what state our qubits are in. Anything aspect of the state that doesn't affect the probabilities is therefore just a mathematical curiosity.
+Vectors are how we use math to represent the state of a qubit. With them we can calculate the probabilities of all the possible things that could ever be measured. These probabilities are essentially all that is physically relevant about a qubit. It is by measuring them that we can determine or verify what state our qubits are in. Anything aspect of the state that doesn't affect the probabilities is therefore just a mathematical curiosity.
 
-Now you'd sat through a paragraph of heavy-handed philoshophy, let's find ourselves a physically irrelevant mathematical curiosity.
-
-Consider a state that looks like this
+Let's find an example. Consider a state that looks like this
 
 $$
 |\tilde 0\rangle = \begin{pmatrix} -1 \\ 0 \end{pmatrix} = -|0\rangle.
@@ -151,7 +145,7 @@ $$
 
 As you probably know, any negative number squares to the same value as its positive counterpart: $$(-x)^2 =x^2$$ .
 
-Since we square inner products to get probabilities, this means that any probability we could ever calculate for $$|\tilde0\rangle$$will give us the same value as for $$|0\rangle$$. Since these, there is no observable different between $$|\tilde0\rangle$$ and $$|0\rangle$$them: they are just different ways of representing the same state.
+Since we square inner products to get probabilities, this means that any probability we could ever calculate for $$|\tilde0\rangle$$will give us the same value as for $$|0\rangle$$. If the probabilities of everything are the same, there is no observable different between $$|\tilde0\rangle$$ and $$|0\rangle$$: they are just different ways of representing the same state.
 
 This is known as the irrelevance of the global phase. Quite simply, this means that multplying the whole of a quantum state by $$-1$$ gives us a state that will look different, but which is actually completely equivalent.
 
@@ -177,7 +171,7 @@ The inner product is 0, just as it is for $$|0\rangle$$and $$|1\rangle$$. This m
 
 ### The x basis \(part 2\)
 
-Whenever we find a pair of orthogonal qubit states, we can use it to define a kind of measurement.
+Whenever we find a pair of orthogonal qubit states, we can use it to define new a kind of measurement.
 
 First, let's apply this to the case we know well: the z measurement. This asks a qubit whether it is $$|0\rangle$$ or $$|1\rangle$$. If it is $$|0\rangle$$, we get the result `0`. For $$|1\rangle$$we get `1`. Anything else, such as $$|+\rangle$$, is treated as a superposition of the two.
 
@@ -206,37 +200,45 @@ This is the x measurement.
 
 Qubits in quantum circuits always start out in the state $$|0\rangle$$. By applying different operations, we can make them explore other states.
 
-Try this out yourself using a single qubit, creating circuits using operations from the following list, and then doing x and z measurements.
+Try this out yourself using a single qubit, creating circuits using operations from the following list, and then doing the x and z measurements in the way described at the top of the page.
 
 ```text
 h q[0]; \\ the hadamard
-x q[0]; \\ x rotation
-y q[0]; \\ y rotation
-z q[0]; \\ z rotation
+
+x q[0]; \\ x gate
+
+y q[0]; \\ y gate
+
+z q[0]; \\ z gate
+
 \\ for the following, replace theta by any number
-u3(theta,-pi/2,pi/2) q[0]; \\ x rotation
-u1(theta) q[0]; \\ z rotation
+
+u3(theta,-pi/2,pi/2) q[0]; \\ x axis rotation
+
+u1(theta) q[0]; \\ z axis rotation
 ```
 
-You'll find examples where the z measurement gives a certain result, but the x is completely random. You'll also find examples where the opposite is true. Furthermore, there are many examples where both are partially random. With enough experimentation, you might even uncover the rule that underlies this behaviour.
+You'll find examples where the z measurement gives a certain result, but the x is completely random. You'll also find examples where the opposite is true. Furthermore, there are many examples where both are partially random. With enough experimentation, you might even uncover the rule that underlies this behaviour,
 
 $$
-(p^z_0-p^z_1)^2 + (p^x_0-p^x_1)^2 = 1
+(p^z_0-p^z_1)^2 + (p^x_0-p^x_1)^2 = 1.
 $$
 
-This is a version of Heisenberg's famous uncertainty principle. The $$(p^z_0-p^z_1)^2$$ term measures how certain the qubit is about the outcome of a z measurement.. The $$(p^x_0-p^x_1)^2$$ term measures the same for the x measurement. Their sum is the total certainty of the two combined. Given that this total always takes the same value, we find that certainty limited and conserved resource.
+This is a version of Heisenberg's famous uncertainty principle. The $$(p^z_0-p^z_1)^2$$ term measures how certain the qubit is about the outcome of a z measurement.. The $$(p^x_0-p^x_1)^2$$ term measures the same for the x measurement. Their sum is the total certainty of the two combined. Given that this total always takes the same value, we find that the amount of information that a qubit can be certain about is a limited and conserved resource.
 
 The above is not actually entirely true, as you'll soon see by trying any of the operations below
 
 ```text
 s q[0]; \\ the s gate
+
 sdg q[0]; \\ the inverse of the s gate
-u3(theta,0,0) q[0]; \\ y rotation
+
+u3(theta,0,0) q[0]; \\ y axis rotation
 ```
 
 For a circuit with a single `u3(pi/2,0,0)`, for example, we find that $$(p^z_0-p^z_1)^2 + (p^x_0-p^x_1)^2=0$$. It seems to have reduced our total certainty to zero.
 
-All is not lost, though. We simply need to add another `u3(pi/2,0,0)` to our circuit to go back to obeying $$(p^z_0-p^z_1)^2 + (p^x_0-p^x_1)^2=1$$. It seems that this operation does not destroy our certainty. It simply moves it back and forwards between the z and x measurements and somewhere else. So let's find this somewhere else
+All is not lost, though. We simply need to add another `u3(pi/2,0,0)` to our circuit to go back to obeying $$(p^z_0-p^z_1)^2 + (p^x_0-p^x_1)^2=1$$. This shows that this operation does not destroy our certainty, it simply moves it back and forwards between the z and x measurements and somewhere else. So let's find that somewhere else
 
 ### The y basis \(part 1\)
 
@@ -247,10 +249,10 @@ At the end of the last section, it seemed that we were missing a piece of the pu
 The first step is to find a state that seems random to both x and z measurements. Let's call it $$|\circlearrowleft\rangle$$, for no apparent reason.
 
 $$
-|\circlearrowleft\rangle = a_0 | 0 \rangle + a_1 | 1 \rangle
+|\circlearrowleft\rangle = c_0 | 0 \rangle + c_1 | 1 \rangle
 $$
 
-Now the job is to find the right values for $$a_0$$ and $$a_1$$. You could try to do this with standard positive nad negative numbers, but you'll never be able to find a state that is random for both x and z measurements. To achieve this, we need to use complex numbers.
+Now the job is to find the right values for $$a_0$$ and $$a_1$$. You could try to do this with standard positive nad negative numbers, but you'll never be able to find a state that is completely random for both x and z measurements. To achieve this, we need to use complex numbers.
 
 ### Complex numbers
 
@@ -303,7 +305,7 @@ $$
 |\circlearrowright\rangle = \frac{ | 0 \rangle + i | 1 \rangle}{\sqrt{2}}\\|\circlearrowleft\rangle = \frac{ | 0 \rangle -i | 1 \rangle}{\sqrt{2}}
 $$
 
-You can verify yourself that they both give random outputs for x and z matrices. They are also orthogonal to each other. So they define a new measurement, and that basis is mutally unbiased with x and z. This is the third and final fundamental measurement for a single qubit. We call it the y measurement, and can implement it with
+You can verify yourself that they both give random outputs for x and z measureemsnt. They are also orthogonal to each other. So they define a new measurement, and that basis is mutally unbiased with x and z. This is the third and final fundamental measurement for a single qubit. We call it the y measurement, and can implement it with
 
 ```text
 // y measurement of qubit 0
@@ -312,13 +314,13 @@ sdg q[0];
 measure q[0] -> c[0];
 ```
 
-With the x, y and z measurements, we now have everything covered. Whatever operations we apply, a single qubit will always obey
+With the x, y and z measurements, we now have everything covered. Whatever operations we apply, a single isolated qubit will always obey
 
 $$
 (p^z_0-p^z_1)^2 + (p^y_0-p^y_1)^2 + (p^x_0-p^x_1)^2 = 1.
 $$
 
-This will always hold for any isolated qubit. As long as it does not interact with other qubits or suffer noise, the certainty will be conserved in this way.
+As long the qubit does not interact with other qubits or suffer noise, the certainty will be conserved in this way.
 
 
 

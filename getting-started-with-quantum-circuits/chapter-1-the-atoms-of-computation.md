@@ -1,18 +1,14 @@
 # The atoms of computation
 
-Programming a quantum computer is now something that anyone can do in the comfort of their own home. The simplest way is to use the composer_._ This lets you construct programs with a graphical interface, and then run them on real devices in the IBM Research labs.
+Programming a quantum computer is now something that anyone can do in the comfort of their own home. The simplest way is to use the Composer_._ This lets you construct quantum programs with a graphical interface, and then run them on real devices in the IBM Research labs.
 
 Once you've headed over to the website and set up your account, you’ll be given a blank canvas on which to create something quantum.
-
-{% hint style="danger" %}
-Screenshots might not reflect the most recent version of the composer.
-{% endhint %}
 
 ![](../.gitbook/assets/blank.png)
 
 But what to create? What is a quantum program anyway? In fact, what is a quantum computer?
 
-These questions can be answered by making comparisons to standard digital computers. Unfortunately, most people don’t actually understand how digital computers work either. So in this article we’ll look at the basics principles behind these device. And to help us transition over to quantum computing later on, we’ll do it using the composer.
+These questions can be answered by making comparisons to standard digital computers. Unfortunately, most people don’t actually understand how digital computers work either. So in this article we’ll look at the basics principles behind these devices. And to help us transition over to quantum computing later on, we’ll do it using the composer.
 
 ### **Splitting information into bits**
 
@@ -27,7 +23,7 @@ $$
 or, expressed in a way that emphasizes the powers of ten
 
 $$
-9×10^3 + 2×10^2 + 1×10^1 + 3×10^0
+9\times10^3 + 2\times10^2 + 1\times10^1 + 3\times10^0
 $$
 
 Though we usually use this system based on the number 10, we can just as easily use one based on any other number. The binary number system, for example, is based on the number two. This means using the two characters 0 and 1 to express numbers as multiples of powers of two. For example, 9213 becomes 10001111111101, since
@@ -42,7 +38,7 @@ A string of bits is called a _binary string._ From now on, we’ll write them in
 
                                                              9213 = `10001111111101`
 
-Binary strings can be used them to represent more than just numbers. For example, there is a way to represent any text using bits. For any letter, number or punctuation mark you want to use, you can find a corresponding string of at most eight bits using [this table](https://www.ibm.com/support/knowledgecenter/en/ssw_aix_72/com.ibm.aix.networkcomm/conversion_table.htm). This choice is quite arbitrary, but it is a widely agreed upon standard, and was used to transmit this article to you through the internet.
+Binary strings can be used them to represent more than just numbers. For example, there is a way to represent any text using bits. For any letter, number or punctuation mark you want to use, you can find a corresponding string of at most eight bits using [this table](https://www.ibm.com/support/knowledgecenter/en/ssw_aix_72/com.ibm.aix.networkcomm/conversion_table.htm). This choice is quite arbitrary, but it is a widely agreed upon standard. In fact, it's what was used to transmit this article to you through the internet.
 
 This is how all information is represented in computers. Whether numbers, letters, images or sound, it all exists in the form of binary strings.
 
@@ -78,48 +74,45 @@ Now we know how to encode information in a computer. The next step is to process
 
 To look at turning inputs into outputs, we need a problem to solve. Let’s do some basic maths. In primary school you will have learned how to take large mathematical problems and break them down into manageable pieces. For example, how would you go about solving the following?
 
-```text
-   9213
-+  1854
-
-=  ????
-```
+$$
+~~~~~9~2~1~3\\
++ ~1~8~5~4\\
+= ~~~?~?~?~?~~
+$$
 
 One way is to do it digit by digit, from right to left. So we start with 3+4
 
-```text
-   9213
-+  1854
-
-=  ???7
-```
+$$
+~~~~~9~2~1~3\\
++ ~1~8~5~4\\
+= ~~~?~?~?~7~~
+$$
 
 And then 1+5
 
-```text
-   9213
-+  1854
-
-=  ??67
-```
+$$
+~~~~~9~2~1~3\\
++ ~1~8~5~4\\
+= ~~~?~?~6~7~~
+$$
 
 Then we have 2+8=10. Since this is a two digit answer, we need to carry the one over to the next column.
 
-```text
-   9213
-+  1854
-   ¹
-=  ?067
-```
+$$
+~~~~~9~2~1~3\\
++ ~1~8~5~4\\
+= ~~~?~1~6~7~~\\
+{}^1~~~~~\\
+$$
 
-Finally we have 9+1+1, and get our answer
+Finally we have 9+1+1=11, and get our answer
 
-```text
-   9213
-+  1854
-   ¹
-= 11067
-```
+$$
+~~~~~~9~2~1~3\\
++ ~~1~8~5~4\\
+= 1~1~1~6~7~~\\
+~{}^1~~~~~\\
+$$
 
 This may just be simple addition, but it demonstrates the principles behind all algorithms. Whether the algorithm is designed to solve mathematical problems or process text or images, we always try to make things easy with small and simple steps.
 
@@ -148,8 +141,8 @@ Next we have `1+1`. As you’ll surely be aware, 1+1=2. In binary, the number 2 
 ```text
    10001111111101
 +  00011100111110
-             ¹
 =  ???????????011
+             ¹
 ```
 
 The next column now requires us to calculate `1+1+1.` This means adding three numbers together, so things are getting complicated for our computer. But we can still compile it down to simpler operations, and do it in a way that only ever requires us to add two bits together. For this we can start with just the first two `1`s.
@@ -175,8 +168,8 @@ Now we can get back to the bigger problem. With the answer of `11`, we have anot
 ```text
    10001111111101
 +  00011100111110
-            ¹¹
 =  ??????????1011
+            ¹¹
 ```
 
 So now we have another `1+1+1` to do. But we already know how to do that, so it’s not a big deal.
@@ -190,9 +183,11 @@ In fact, everything left so far is something we already know how to do. This is 
 1+1 = 10 (in decimal, this is 1+1=2)
 ```
 
-This is called a _half adder_. If our computer can implement this, and if it can chain many of them together, it can add anything. Let’s make one with the composer.
+This is called a _half adder_. If our computer can implement this, and if it can chain many of them together, it can add anything.
 
 ### Adding with the composer
+
+Let's make our own half adder using the composer. This will include a part of the circuit that encodes the input, a part that executes the algorithm, and a part that extracts the result. The first part will need to be changed whenever we want to use a new input, but the rest will always remain the same.
 
 ![](../.gitbook/assets/2bit-1.png)
 
@@ -211,7 +206,7 @@ To see what we need, let’s take another look at what our half adder needs to d
 
 The rightmost bit in all four of these answers is completely determined by whether the two bits we are adding are the same or different. So for `0+0` and `1+1`, where the two bits are equal, the rightmost bit of the answer comes out `0`. For `0+1` and `1+0`, where we are adding different bit values, the rightmost bit is `1`.
 
-To get this bit of our solution correct, we need something that can figure out whether two bits are different or not. Traditonally, in the study of normal digital computation, this is called an _OR gate_.
+To get this part of our solution correct, we need something that can figure out whether two bits are different or not. Traditonally, in the study of digital computation, this is called an _OR gate_.
 
 In quantum computers, and so also on the composer, the job of the OR gate is done by the _controlled-NOT_ gate. Since that's quite a long name, we usually just call it the _CNOT_.
 
@@ -229,10 +224,10 @@ Try the CNOT out for yourself by trying each of the possible inputs. For example
 
 If you set this up, you’ll find that the output is `11`. We can think of this happening because of either of the following reasons.
 
-* The CNOT calculates whether the input values are different and finds that they are, which means that it wants to ouput `1`. It does this by writing over the state of qubit 1 \(which, remember, is on the left of the bit string\), turning `01` into `11`.
+* The CNOT calculates whether the input values are different and finds that they are, which means that it wants to output `1`. It does this by writing over the state of qubit 1 \(which, remember, is on the left of the bit string\), turning `01` into `11`.
 * The CNOT sees that qubit 0 is in state `1`, and so applies a NOT to qubit 1. This flips the `0` of qubit 1 into a `1`, and so turns `01` into `11`.
 
-For our half adder, we don’t want to overwrite our input. Instead, we want to write the result on a different pair of qubits. For this we can use two CNOTs.
+For our half adder, we don’t want to overwrite one of our inputs. Instead, we want to write the result on a different pair of qubits. For this we can use two CNOTs.
 
 ![](../.gitbook/assets/2bit-2.png)
 
@@ -254,7 +249,7 @@ In this example we are calculating `1+1`, because the two input bits are both `1
 
 We get `10`, which is the binary representation of the number 2. We have built a computer that can solve the famous mathematical problem of 1+1!
 
-All that’s left is to try it out with the other three possible inputs, and show that our algorithm gives the right results for those too. Perhaps the easiest way to try this is to use the ‘Qasm Editor’ rather than the graphical interface of the composer. Just paste in the following.
+All that’s left is to try it out with the other three possible inputs, and show that our algorithm gives the right results for those too. Perhaps the easiest way to try this is to use the ‘QASM Editor’ rather than the graphical interface of the composer. Just paste in the following.
 
 ```text
 include "qelib1.inc";
@@ -269,17 +264,20 @@ x q[0];
 // For b=0, remove the following line. For b=1, leave it.
 x q[1];
 
+// calculate the sum bit of the output
 cx q[1],q[2];
 cx q[0],q[2];
+// calculate the carry bit
 ccx q[0],q[1],q[3];
 
+// extract outputs
 measure q[2] -> c[0];
 measure q[3] -> c[1];
 ```
 
-The half adder contains everything you need for addition. With the NOT, CNOT and Toffoli gates, we can create programs that add any set of numbers of any size. You could try making some [more complex adders](https://en.wikipedia.org/wiki/Adder_%28electronics%29) yourself, or check out [some examples](https://github.com/Qiskit/openqasm/blob/master/examples/README.md) in Qasm form.
+The half adder contains everything you need for addition. With the NOT, CNOT and Toffoli gates, we can create programs that add any set of numbers of any size. You could try making some [more complex adders](https://en.wikipedia.org/wiki/Adder_%28electronics%29) yourself, or check out [some examples](https://github.com/Qiskit/openqasm/blob/master/examples/README.md) in QASM form.
 
 These three gates are also enough to do everything else in computing too. In fact, we can do even do without the CNOT, and the NOT gate is only really needed to create bits with value `1`. The Toffoli gate is essentially the atom of mathematics. It is simplest element into which every other problem solving technique can be compiled.
 
-In quantum computing, we split the atom.
+As we'll see, in quantum computing we split the atom.
 

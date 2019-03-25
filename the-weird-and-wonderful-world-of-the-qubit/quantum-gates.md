@@ -1,6 +1,6 @@
 # Quantum gates
 
-To manipulate an input state we need to apply the basic operations of quantum computing. These are known as quantum gates. Here we'll give an introduction to all the gates that you'll find in the composer and in OpenQASM. Most of the gates we'll be looking at act only on a single qubit. This means that their action can be understood simply in terms of the Bloch sphere.
+To manipulate an input state we need to apply the basic operations of quantum computing. These are known as quantum gates. Here we'll give an introduction to all the gates that you'll find in the Composer and in OpenQASM. Most of the gates we'll be looking at act only on a single qubit. This means that their action can be understood simply in terms of the Bloch sphere.
 
 ### The Pauli operators
 
@@ -24,7 +24,7 @@ y q[0]; \\ x on qubit 0
 z q[0]; \\ x on qubit 0
 ```
 
-The matrix representations of these matrices have already been shown in a previous section.
+The matrix representations of these gates have already been shown in a previous section.
 
 $$
 X= \begin{pmatrix} 0&1 \\ 1&0 \end{pmatrix}\\
@@ -34,7 +34,9 @@ $$
 
 There, their job was to help us make calculations regarding measurements. But since these matrices are unitary, and therefore define a reversible quantum operation, this additional interpretation of them as gates is also possible.
 
-### H, S and Sdg
+Note that here we referred to these gates as $$X$$, $$Y$$and $$Z$$ and `x`, `y` and `z`, depending on whether we were talking about their matrix represetation or which the way they are written in OpenQASM. Typically we will use the style of $$X$$, $$Y$$and $$Z$$when referring to gates in text or equations, and `x`, `y` and `z` when writing QASM code.
+
+### Hadamard and S
 
 The Hadamard gate is one that we've already used. It's a key component in performing an x measurement
 
@@ -44,14 +46,16 @@ h q[0];
 measure q[0] -> c[0];
 ```
 
-Like the Paulis, the Hadamard is also a half rotation of the Bloch sphere. The difference is that it rotates around an axes located halfway between x and z. This gives it the effect of rotating states point along the z axis to those pointing along x, and vice-versa.
+Like the Paulis, the Hadamard is also a half rotation of the Bloch sphere. The difference is that it rotates around an axes located halfway between x and z. This gives it the effect of rotating states that point along the z axis to those pointing along x, and vice-versa.
 
 $$
 H |0\rangle = |+\rangle,~~~H |1\rangle = |-\rangle,\\
 H |+\rangle = |0\rangle,~~~H |-\rangle = |1\rangle.
 $$
 
-This effect makes it an essential part of making x measurements, given that only z measurements can be performed in the hardware directly. The $$H |0\rangle = |+\rangle $$ property also makes the Hadamard our primary means of generating superposition states. The matrix form of this is
+This effect makes it an essential part of making x measurements. IBM quantum hardware, like most quantum hardware can only perform z measurements directly. Since the Hadamard moves x basis information to the z basis, it allows an indirect measurement of x.
+
+The property that $$H |0\rangle = |+\rangle $$ also makes the Hadamard our primary means of generating superposition states. It's matrix form is,
 
 $$
 H = \frac{1}{\sqrt{2}}\begin{pmatrix} 1&1 \\ 1&-1 \end{pmatrix}.
@@ -92,9 +96,9 @@ The $$H$$, $$S$$ and $$S^\dagger$$ gates, along with the Paulis, form the so-cal
 
 We've already seen the $$X$$, $$Y$$and $$Z$$ gates, which are rotations around the x , y and z axes by a specific angle. More generally we can extend this concept to rotations by an arbitrary angle $$\theta$$ . This gives us the gates $$R_x(\theta)$$, $$R_y(\theta)$$ and  $$R_z(\theta)$$.
 
-The angle is expressed in radians, so the Pauli operations correspond to $$\theta=\pi$$ . Their square roots require half this angle, $$\theta=\pm \pi/2$$, and so on.
+The angle is expressed in radians, so the Pauli gates correspond to $$\theta=\pi$$ . Their square roots require half this angle, $$\theta=\pm \pi/2$$, and so on.
 
-In QASM, these rotations can be implemented via the `u3` and `u1` gates.
+In OpenQASM, these rotations can be implemented via the `u3` and `u1` gates.
 
 ```text
 u3(theta,pi/2,-pi/2); \\ rx rotation on qubit 0

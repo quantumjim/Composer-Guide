@@ -32,13 +32,13 @@ $$
 
 Let's take a moment to think a little about the numbers $$\langle X \rangle$$,  $$\langle Y \rangle$$ and  $$\langle Z \rangle$$. Though their values depend on what state our qubit is in, they are always constrained to be no larger than 1, and no smaller than -1. They also collectively obey the condition written above.
 
-There are another set of numbers that behave in the same way. 
-
-First, take a sphere. For this, we can describe every point on the surface of the sphere in terms of it's x, y and z coordinates. We'll place the origin of our coordinate system at the center of the sphere. The coordinates are then constrained by the radius in both directions: they can be no greater than $$r$$ , and no less than $$-r$$ . For simplicity, let's set the radius to be $$r=1$$.
+The same properties are also shared by another set of three numbers that we know from a completely different context. To see what they are, first consider a sphere. For this, we can describe every point on the surface in terms of it's x, y and z coordinates. We'll place the origin of our coordinate system at the center of the sphere. The coordinates are then constrained by the radius in both directions: they can be no greater than $$r$$ , and no less than $$-r$$ . For simplicity, let's set the radius to be $$r=1$$.
 
 For any point, the distance from the surface of the sphere can be determined by the 3D version of Pythagorus' theorem. Specifically, $$x^2 + y^2 + z^2$$. For points on the surface, this distance is always 1.
 
-So now we have three numbers that can each be no greater than 1, no less than -1, and for which the sum of the squares is always 1. All exactly the same as $$\langle X \rangle$$,  $$\langle Y \rangle$$ and  $$\langle Z \rangle$$. They even have pretty much the same names as these values. This allows us to visualize any single qubit state as a point on the surface of a sphere. We call this the Bloch sphere.
+So now we have three numbers that can each be no greater than 1, no less than -1, and for which the sum of the squares is always 1. All exactly the same as $$\langle X \rangle$$,  $$\langle Y \rangle$$ and  $$\langle Z \rangle$$. They even have pretty much the same names as these values. 
+
+Because of this correspondence, we can apply all our existing knowledge and intuition about balls to our understanding of qubits. Specifcially, we can visualize any single qubit state as a point on the surface of a sphere. We call this the Bloch sphere.
 
 ![](../.gitbook/assets/image.png)
 
