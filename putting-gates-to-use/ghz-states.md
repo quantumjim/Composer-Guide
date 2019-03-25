@@ -2,7 +2,7 @@
 
 Perhaps even stranger than Bell states are their three-qubit generalization, the _GHZ states_. An example of one of these states is $$(|000\rangle-|111\rangle)/\sqrt{2}$$. A circuit to create this is
 
-```text
+```c
 h q[0];
 z q[1];
 cx q[0], q[1];
@@ -27,7 +27,7 @@ $$
 XYY = YXY = YYX = 1, ~~~ XXX=-1.
 $$
 
-After a while you will realize this is not possible. The simple way to show this is the following: if we multiply the first three equations together and use the fact that $$Y^2=1$$ for any $$Y=\pm1$$,  obtain $$XXX=1$$. This contradicts the fourth identity.
+After a while you will realize this is not possible. The simple way to show this is the following: if we multiply the first three equations together and use the fact that $$Y^2=1$$ for any $$Y=\pm1$$, obtain $$XXX=1$$. This contradicts the fourth identity.
 
 Amazingly enough, a GHZ state can provide a solution to this problem. Then we have to accept what quantum mechanics teaches us: there are not local hidden elements of reality associated with each qubit which predetermine the outcomes of measurements in the $$X$$ and $$Y$$ bases. So, as Mermin pointed out, the GHZ test described above contradicts the possibility of physics being described by local reality! As opposed to the Bell test, which provides only a statistical evidence for the contradiction, the GHZ test can rule out the local reality description with certainty after a single run of the experiment \(not including the effects of noise and imperfections in our system\).
 
@@ -37,7 +37,7 @@ Even before we make the measurement, we can infer something about the results we
 
 Next consider the Pauli operator $$X\otimesY\otimesY$$. One can check that the GHZ state is a $$+1$$ eigenvector of this. Therefore, $$XYY=1$$ for each realization of the experiment. Likewise, $$YXY=1$$, and $$YYX=1$$.
 
-One can verify this by running the experiments using the circuits provided below. Here you can see the results we got when we ran this experiment on the processor:   
+One can verify this by running the experiments using the circuits provided below. Here you can see the results we got when we ran this experiment on the processor:
 
 ![image2](https://dal.objectstorage.open.softlayer.com/v1/AUTH_039c3bf6e6e54d76b8e66152e2f87877/images-classroom/Screen%20Shot%202016-05-03%20at%2010.30.31%20PM5vv145poc8qfflxr.png)
 
