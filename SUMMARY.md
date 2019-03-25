@@ -15,8 +15,8 @@
   * [The standard gate set](universality-of-quantum-computation/the-standard-gate-set.md)
   * [The meaning of universality](universality-of-quantum-computation/the-meaning-of-universality.md)
   * [Proving universality](universality-of-quantum-computation/proving-universality.md)
-* [Putting gates to use](quantum-algorithms/README.md)
-  * [Basic circuit identities](quantum-algorithms/basic-circuit-identities.md)
-  * [Entanglement and Bell Tests](quantum-algorithms/entanglement-and-bell-tests.md)
-  * [GHZ States](quantum-algorithms/ghz-states.md)
+* [Putting gates to use](putting-gates-to-use/README.md)
+  * [Basic circuit identities](putting-gates-to-use/basic-circuit-identities.md)
+  * [Entanglement and Bell Tests](putting-gates-to-use/entanglement-and-bell-tests.md)
+  * [GHZ States](putting-gates-to-use/ghz-states.md)
 
