@@ -8,13 +8,13 @@ Studying universality is inherently an endeavour that needs math. As such, we'll
 
 Firstly, we need the concept of the [Hermitian conjugate](https://en.wikipedia.org/wiki/Conjugate_transpose#Example). For this we take a matrix $$M$$ , then we replace every element with its complex conjugate, and finally we transpose them \(replace the top left element with the bottom right, and so on\). This gives us a new matrix that we call $$M^\dagger$$.
 
-There are two families of matrices that are defined by their relationship with the Hermitian conjugate, and which are very important to quantum computing. One is the family of unitary matrices, for which
+Two families of matrices that are very important to quantum computing are defined by their relationship with the Hermitian conjugate. One is the family of unitary matrices, for which
 
 $$
 U U^\dagger = U^\dagger U = 1.
 $$
 
-This means that the Hermitian conjugate of a unitary is its inverse. It gives us another unitary $$U^\dagger$$ with the power to undo the effects of $$U$$. All gates in quantum computing, with the exception of measurement, can be represented by unitary matrices.
+This means that the Hermitian conjugate of a unitary is its inverse. This is another unitary $$U^\dagger$$ with the power to undo the effects of $$U$$. All gates in quantum computing, with the exception of measurement, can be represented by unitary matrices.
 
 The other important family of matrices are the Hermitian matrices. These are the matrices that are unaffected by the Hermitian conjugate
 
@@ -45,7 +45,9 @@ This property also extends to matrices for any number of qubits, $$n$$. We simpl
 
 ### Spectral form
 
-This provides us with a very useful way of writing unitary matrices, or even designing new ones that we want to implement. First we pick a set of orthogonal states that describe our qubits. For example, for two qubits we could simply choose $$\{|00\rangle,|01\rangle,|10\rangle,|11\rangle\}$$. Then we determine the state that the unitary rotates each of these states to \(or, if designing a unitary, the state that we want it to rotate them to\). Let's call these$$\{|u_{00}\rangle,|u_{01}\rangle,|u_{10}\rangle,|u_{11}\rangle\}$$. The unitary that performs this can then be written
+Outer products provide a very useful way of writing matrices. They are especially useful for unitaries, since we can simply capture the way that states are transformed.
+
+To do this, we first pick a set of orthogonal states that describe our qubits. For example, for two qubits we could simply choose $$\{|00\rangle,|01\rangle,|10\rangle,|11\rangle\}$$. Then we determine the state that the unitary rotates each of these states to. Let's call these$$\{|u_{00}\rangle,|u_{01}\rangle,|u_{10}\rangle,|u_{11}\rangle\}$$. The unitary that performs this can then be written
 
 $$
 U = |u_{00}\rangle\langle00| + |u_{01}\rangle\langle01| + |u_{10}\rangle\langle10| +|u_{11}\rangle\langle11|
@@ -59,7 +61,9 @@ $$
 U = \sum_j e^{ih_j} |h_j\rangle\langle h_j|
 $$
 
-Here the unitary takes each state of this basis, which we've called $$|h_j\rangle$$, and replaces it with $$e^{ih_j}|h_j\rangle$$. Since the $$e^{ih_j} |h_j\rangle$$ must themselves be valid quantum states, the  $$e^{ih_j}$$ must be complex numbers of magnitude 1. This therefore corresponds to the unitary simply inducing a global phase on its eigenstates. The non-trivial effects of this unitary will come for superpositions of these states, for which a relative phase may be induced. Note that we have written the phases $$e^{ih_j}$$ in the exponential for complex numbers, and so the $$h_j$$ must be real numbers.
+Here the unitary takes each state of this basis, which we've called $$|h_j\rangle$$, and replaces it with $$e^{ih_j}|h_j\rangle$$. Since the $$e^{ih_j} |h_j\rangle$$ must themselves be valid quantum states, the  $$e^{ih_j}$$ must be complex numbers of magnitude 1. In fact, this is exactly why we wrote them as a complex exponential: to ensure that they have magnitude 1, we simply need to ensure that the $$h_j$$ are real numbers.
+
+For these states, the unitary simply induces a global phase. The non-trivial effects of this unitary will come for superpositions of these states, for which a relative phase may be induced.
 
 Hermitian matrices also have well-defined eigenstates and eigenvalues, and can be written in the same form as the unitary matrix above.
 
@@ -77,7 +81,7 @@ $$
 
 So the inner product of a state with itself is inherently Hermitian. To ensure that $$H$$ is Hermitian as a whole, we therefore only need to require the eigenvalues $$h_j$$ to be real.
 
-If you were wondering about the coincidence of notation used above for $$U$$ and $$H$$ in spectral form, this should hopefully begin to explain it. Essentially, these two types of matrix differ only in that one must have real numbers for eigenvalues, and the other must have complex exponentials of real numbers. This means that, for every unitary, we can define a corresponding Hermitian matrix. It must simply reuse the same eigenstates, and use the $$h_j$$ from each $$e^{ih_j}$$ as the corresponding eigenvalue.
+If you were wondering about the coincidence of notation used above for $$U$$ and $$H$$ in spectral form, this should hopefully begin to explain it. Essentially, these two types of matrix differ only in that one must have real numbers for eigenvalues, and the other must have complex exponentials of real numbers. This means that, for every unitary, we can define a corresponding Hermitian matrix. For this we simply reuse the same eigenstates, and use the $$h_j$$ from each $$e^{ih_j}$$ as the corresponding eigenvalue.
 
 Similarly, for each Hermitian matrix there exists a unitary. We simply reuse the same same eigenstates, and exponentiate the $$h_j$$ to create the eigenvalues $$e^{ih_j}$$. This can be expressed
 

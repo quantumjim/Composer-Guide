@@ -4,15 +4,15 @@ For every possible realization of fault-tolerant quantum computing, there is a s
 
 ### Clifford gates
 
-Some of the most impotant quantum operations are the so called Clifford operations. A prominent example is the Hadamard gate
+Some of the most important quantum operations are the so called Clifford operations. A prominent example is the Hadamard gate
 
 $$
 H = |+\rangle\langle0|~+~ |-\rangle\langle1| = |0\rangle\langle+|~+~ |1\rangle\langle+|.
 $$
 
-Above this gate is expressed using outer products, as desribed in the last section. When expressed in this form, it's famous effect becomes obvious: it takes $$|0\rangle$$, and rotates it to $$|+\rangle$$. More generally, we can say it rotates the basis states of the z measurement, $$\{ |0\rangle,|1\rangle \}$$ , to the basis states of the x measurement,  $$\{ |+\rangle,|-\rangle \}$$, and vice-versa.
+This gate is expressed above using outer products, as desribed in the last section. When expressed in this form, it's famous effect becomes obvious: it takes $$|0\rangle$$, and rotates it to $$|+\rangle$$. More generally, we can say it rotates the basis states of the z measurement, $$\{ |0\rangle,|1\rangle \}$$ , to the basis states of the x measurement,  $$\{ |+\rangle,|-\rangle \}$$, and vice-versa.
 
-Expressed in this way, we can see the Hadamard as being able to move information around a qubit. It swaps any information that would previously be accessed by an x measurement with that accessed by a z measurement. Indeed, one of the most important jobs of the Hadamard is to do exactly this. We use it when wanting to make an x measurement, given that we can only physically make z measurements.
+This effect of the Hadamard is to move information around a qubit. It swaps any information that would previously be accessed by an x measurement with that accessed by a z measurement. Indeed, one of the most important jobs of the Hadamard is to do exactly this. We use it when wanting to make an x measurement, given that we can only physically make z measurements.
 
 ```text
 // x measurement of qubit 0
@@ -57,7 +57,7 @@ $$
 {\rm CX}_{1,2}~ (X \otimes 1)~{\rm CX}_{1,2} = X \otimes X.
 $$
 
-This effectively 'copies' an $$X$$ from the control qubito over to the target.
+This effectively 'copies' an $$X$$ from the control qubit over to the target.
 
 The process of sandwiching a matrix between a unitary and its Hermitian conjugate is known as conjugation by that unitary. This process transforms the eigenstates of the matrix, but leaves the eigenvalues unchanged. The reason why conjugation by Cliffords can transform between Paulis is because all Paulis share the same set of eigenvalues.
 
@@ -85,7 +85,7 @@ $$
 
 By conjugating this rotation by a Clifford, we can therefore transform it to the same rotation around another axis. So even if we didn't have a direct way to perform  $$R_y(\theta)$$ and  $$R_z(\theta)$$, we could do it with $$R_x(\theta)$$combined with Clifford gates. This technique of boosting the power of non-Clifford gates by combing them with Clifford gates is one that we make great use of in quantum computing.
 
-Certain examples of these rotations have specific names. Rotations by $$\theta = \pi$$ around the x, y and z axes are X, Y and Z, respectively. Rotations by $$\theta = \pm \pi/2$$ around the z axis are S and $$S^†$$, and rotations by $$\theta = \pm \pi/4$$ around the z axis are T and $$T^†$$
+Certain examples of these rotations have specific names. Rotations by $$\theta = \pi$$ around the x, y and z axes are X, Y and Z, respectively. Rotations by $$\theta = \pm \pi/2$$ around the z axis are $$S$$ and $$S^†$$, and rotations by $$\theta = \pm \pi/4$$ around the z axis are $$T$$ and $$T^†$$
 
 ### Composite gates
 
@@ -95,9 +95,9 @@ $$
 CX_{1,2} ~(R_x(\theta) \otimes 1)~ CX_{1,2} = CX_{1,2} ~ e^{i \theta ~ (X\otimes 1)}~ CX_{1,2} = e^{i \theta ~CX_{1,2} ~ (X\otimes 1)~ CX_{1,2}} = e^{i \theta  ~ X\otimes X}
 $$
 
-This transforms our simple, single qubit rotation into a much more powerful two qubit gate. This is not just equivalent to performing the same rotatoon independently on both qubits. Instead, it is a gate capable of generating and manipulating entangled states.
+This transforms our simple, single qubit rotation into a much more powerful two qubit gate. This is not just equivalent to performing the same rotation independently on both qubits. Instead, it is a gate capable of generating and manipulating entangled states.
 
-We needn't stop There. We can use the same trick to extend the operation to to any number of qubits. All that's needed is more conjugates by the controlled-NOT to keep copying the $$X$$ over to new qubits.
+We needn't stop there. We can use the same trick to extend the operation to to any number of qubits. All that's needed is more conjugates by the controlled-NOT to keep copying the $$X$$ over to new qubits.
 
 Furthermore, we can use single qubit Cliffords to transform the Pauli on different qubits. For example, in our two qubit example we could conjugate by $$S$$ on the second qubit to turn the $$X$$ there into a $$Y$$ ,
 

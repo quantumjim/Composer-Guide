@@ -4,7 +4,7 @@ What does it mean for a computer to do everything that it could possibly do? Thi
 
 To ask this question for our classical computers, and specifically for our standard digital computers, we need to strip away all the screens, speakers and fancy input devices. What we are left with is simply a machine that converts input bit strings into output bit strings. If a device can perform any such conversion, taking any arbitrary set of inputs and coverting them to an arbitrarily chose set of outputs, we call it _universal_.
 
-It turns out that the requirements for universality on these devices are quite reasonable. The gates we needed to perform addition in [The atoms of computation](https://learnqiskit.gitbook.io/composerguide/) are also sufficient to implement any possible computation. In fact, just the classical NAND gate is enough, when combined together in sufficient quantities.
+It turns out that the requirements for universality on these devices are quite reasonable. The gates we needed to perform addition in "[The atoms of computation](https://learnqiskit.gitbook.io/composerguide/)" are also sufficient to implement any possible computation. In fact, just the classical NAND gate is enough, when combined together in sufficient quantities.
 
 Though our current computers can do everything in theory, some tasks are too resource intensive in practice. In our study of how to add, we saw that the required resources scaled linearly with the problem size. For example, if we double the number of digits in the numbers, we double the number of small scale additions we need to make.
 
