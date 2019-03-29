@@ -70,7 +70,7 @@ To run this experiment with our hardware, we need the following quantum circuit 
 
 In the first part of the experiment, the qubits are initially prepared in the ground state $$|00\rangle$$ . The $$H$$ takes the first qubit to the equal superposition $$(|00\rangle+|10\rangle)/\sqrt{2}$$ . The CNOT gate flips the second qubit if the first is in state $$|1\rangle$$ , making the state $$(|00\rangle+|11\rangle)/\sqrt{2}$$ . This is the entangled state \(commonly called a _Bell state_\) required for this test. In OpenQASM
 
-```text
+```c
 \\ making a Bell state
 h q[0]
 cx q[0], q[1];
@@ -78,7 +78,7 @@ cx q[0], q[1];
 
  In the first experiment, the measurements are of the observable $$Z$$ and $$W=H$$ . To rotate the measurement basis to the $$W$$ basis, we can use the following
 
-```text
+```c
 \\ W measurement
 s q[1];
 h q[1];
@@ -89,7 +89,7 @@ measure q[1] -> c[1];
 
 The correlator $$\langle ZW\rangle$$ should be close to $$1/\sqrt{2}$$ . The $$V$$ measurement is similarly performed with
 
-```text
+```c
 \\ V measurement
 s q[1];
 h q[1];

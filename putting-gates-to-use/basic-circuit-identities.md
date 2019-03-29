@@ -8,7 +8,7 @@ Many of the techniques discussed in this chapter where first proposed in [Barenc
 
 The controlled-Z  or $$CX$$ gate is another well used two-qubit gate. Just as the controlled-NOT applies an $$X$$ to its target qubit whenever its control is in state $$|1\rangle$$, the controlled- $$Z$$ applies a $$Z$$ in the same case. In QASM it can be invoked directly with
 
-```text
+```c
 \\ a controlled-Z
 cz q[c], q[t];
 ```
@@ -35,7 +35,7 @@ The same trick can be used to transform a $$CX$$ into a $$CZ$$.
 
 More generally we can transform a single controlled-NOT into a controlled version of any rotation around the Bloch sphere by an angle $$\pi$$ , by simply preceding and following it with the correct rotations. For example, a controlled-$$Y$$.
 
-```text
+```c
 \\ a controlled-Y
 s q[t];
 cx q[c], q[t];
@@ -44,7 +44,7 @@ sdg q[t];
 
 and a controlled-Hadamard
 
-```text
+```c
 \\ a controlled-H
 u3(-pi/4,0,0) q[t];
 cx q[c], q[t];
@@ -55,7 +55,7 @@ u3(pi/4,0,0) q[t];
 
 Sometimes, we need to move information around in a quantum computer. For some ways of implementing qubits, this could be done by physically moving them. Another option is simply to move the state between two qubits. This is done by the SWAP gate.
 
-```text
+```c
 \\ swaps states of qubits a and b
 swap q[a], q[b];
 ```
@@ -64,7 +64,7 @@ The command above directly invokes this gate, but let's see how we might make it
 
  First, we'll look at the case that qubit a is in state $$|1\rangle$$ and qubit b is in state $$|0\rangle$$. For this we'll apply the following gates
 
-```text
+```c
 \\ swap a 1 from a to b
 cx q[a], q[b]; \\ copies 1 from a to b
 cx q[b], q[a]; \\ uses the 1 on b to rotate a to 0
@@ -74,7 +74,7 @@ This has the effect of giving is the state where it is now qubit b in state $$|1
 
 Now let's take this state and SWAP back to the original one. Clearly, we can do this with the reverse of the above process
 
-```text
+```c
 \\ swap a q from b to a
 cx q[b], q[a]; \\ copies 1 from b to a
 cx q[a], q[b]; \\ uses the 1 on a to rotate b to 0
@@ -86,7 +86,7 @@ Note also that for these two process, the final gate of one would have no effect
 
 With these observations, we can combine the two processes, by adding an ineffective gate from one onto the other. For example
 
-```text
+```c
 cx q[b], q[a];
 cx q[a], q[b];
 cx q[b], q[a];
@@ -100,7 +100,7 @@ The $$|11\rangle$$ state is also symmetric, and so needs a trivial effect from t
 
 We have therefore found a way to decompose SWAP gates into our standard gate set of single qubit rotations and CX gates.
 
-```text
+```c
 \\ swaps states of qubits a and b
 cx q[b], q[a];
 cx q[a], q[b];
@@ -111,7 +111,7 @@ It works for the states $$|00\rangle$$, $$|01\rangle$$, $$|10\rangle$$ and$$|11\
 
 The same effect would also result if we changed the order of the controlled-NOT gates
 
-```text
+```c
 \\ swaps states of qubits a and b
 cx q[b], q[a];
 cx q[a], q[b];
@@ -132,13 +132,13 @@ Let's deal with the second problem described above: If we have a controlled-NOT 
 
 This question would be very simple to answer for the controlled-$$Z$$. For this gate, it doesn't matter which way around the control and target qubits are. So
 
-```text
+```c
 cz q[c], q[t];
 ```
 
 has exactly the same effect as 
 
-```text
+```c
 cz q[t], q[c];
 ```
 
@@ -158,7 +158,7 @@ This new interpretation is phrased in a perfectly symmtric way, and so shows tha
 
 This property gives us a way to reverse the orientation of a controlled-NOT. We can first turn the controlled-NOT into a controlled-$$Z$$ by using the method described earlier: placing an `h` both before and after on the target qubit.
 
-```text
+```c
 // a cz
 h q[t];
 cx q[c], q[t];
@@ -167,7 +167,7 @@ h q[t];
 
 Then since we are free to choose which way around to think of the action of a controlled-$$Z$$, we can choose to simply start thinking of t as the control and c as the target. Then we can transform this controlled-$$Z$$ into a corresponding controlled-NOT. We just need to place a Hadamard both before and after on the target qubit \(which is now qubit c\).
 
-```text
+```c
 // a cx with control qubit t and target qubit c
 h q[c];
 h q[t];
@@ -218,7 +218,7 @@ In this new interpretation, it is qubit t that acts as the control. It is the $$
 
 Among the many uses of this property is the method to turn around a controlled-NOT. For example, consider applying a Hadamard to qubit c both before and after this controlled-NOT
 
-```text
+```c
 h q[c];
 cx q[c], q[t];
 h q[c];
@@ -238,7 +238,7 @@ One way to do this is using the SWAP gate. We can simply SWAP a and t, do the co
 
 Another method is to use the following sequence of gates.
 
-```text
+```c
 // a CX between qubits c and t, with no end effect on qubit a
 cx q[a], q[t];
 cx q[c], q[a];
@@ -262,7 +262,7 @@ We have already seen how to build controlled $$\pi$$ rotations from a single con
 
 First, let's consider arbitary rotations around the y axis. Specifically, consider the following sequence of gates \(recall that `u3(theta/2,0,0)` is the way to implement an $$R_y(\theta/2)$$ rotation in OpenQASM\).
 
-```text
+```c
 u3(theta/2,0,0) q[t];
 cx q[c], q[t];
 u3(-theta/2,0,0) q[t];
@@ -281,7 +281,7 @@ $$
 
 We then use  controlled-NOT  gates to cause the first of these relations to happen whenever the control is in state $$|0\rangle$$, and the second to happen when the control is state $$|1\rangle$$. An $$R_z(\alpha)$$ rotation is also used on the control to get the right phase, which will be important whenever there are superposition states.
 
-```text
+```c
 a q[t];
 cx q[c], q[t];
 b q[t];
@@ -294,7 +294,7 @@ u1(alpha) q[c];
 
 Here a, b and c are gates that implement $$A$$ , $$B$$ and $$C$$ , and must be defined via a subroutine. For example, if we wanted A to be $$R_x(\pi/4)$$, the subroutine would be defined as
 
-```text
+```c
 gate a qubit
 {
         u3(pi/4,pi/2,-pi/2) qubit;
@@ -305,13 +305,13 @@ gate a qubit
 
 The Toffoli gate is a three qubit gate with two controls and one target. It performs an X on the target only if both controls are in the state $$|0\rangle$$. The final state of the target is then equal to either the AND or the NAND of the two controls, depending on whether the initial state of the target was $$|0\rangle$$ or $$|1\rangle$$. Toffoli can also be thought of a controlled-controlled-NOT, and is also called the CCX gate.
 
-```text
+```c
 ccx q[c], q[t];
 ```
 
 To see how to build it from single and two qubit gates it is actually easiest to show how to build something even more general: an arbitary controlled-controlled-U for any single qubit rotation U. For this we need to define controlled versions of $$V = \sqrt{U}$$ and $$V^\dagger$$. In the OpenQASM code below, we assume that subroutines `cv` and `cvdg` have been defined for these, respectively. The controls are qubits a and b, and the target is qubit t.
 
-```text
+```c
 cv q[b], q[t];
 cx q[a], q[b];
 cvdg q[b], q[t];
@@ -329,7 +329,7 @@ The Toffoli is not th unique way to implement an AND gate with quantum computing
 
 For example, suppose let's spend a controlled-NOT to create a controlled-Hadamard.
 
-```text
+```c
 gate ch c, t
 {
         u3(-pi/4,0,0) t;
@@ -340,7 +340,7 @@ gate ch c, t
 
 We'll also use the controlled-$$Z$$ gate, which costs the same as acontrolled-NOT, to implement the following circuit.
 
-```text
+```c
 ch q[a], q[t];
 cz q[b], q[t];
 ch q[a], q[t];
@@ -360,7 +360,7 @@ Fault-tolerant schemes typical perform these rotations using multiple applicatio
 
 The T gate can be expressed in OpenQASM as
 
-```text
+```c
 t q[0]; // T gate on qubit 0
 ```
 
@@ -370,7 +370,7 @@ In the following we assume that the $$H$$ and $$T$$ gates are effectively perfec
 
 Using the Hadamard, and the methods discussed in the last chapter, we can use the T gate to create a similar rotation around the x axis.
 
-```text
+```c
 h q[0];
 t q[0];
 h q[0];
@@ -378,7 +378,7 @@ h q[0];
 
 Now let's put the two together. Let's make the gate $$R_z(\pi/4)~R_x(\pi/4)$$.
 
-```text
+```c
 h q[0];
 t q[0];
 h q[0];
@@ -403,7 +403,7 @@ By using many small angle rotations, we can also rotate by any angle we like. Th
 
 So far, we only have the power to do these arbitrary rotations around one axis. For a second axis, we simply do the $$R_z(\pi/4)$$ and $$R_x(\pi/4)$$ rotations in the opposite order.
 
-```text
+```c
 h q[0];
 t q[0];
 h q[0];
