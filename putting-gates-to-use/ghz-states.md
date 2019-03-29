@@ -33,9 +33,9 @@ Amazingly enough, a GHZ state can provide a solution to this problem. Then we ha
 
 Let's try this out. The circuit for creating the GHZ state is at the top of the page. To make the measurements in the $$X$$ and $$Y$$ basis we again rotate the measurement using the circuits you have seen before.
 
-Even before we make the measurement, we can infer something about the results we'll get. For example, consider the $$XXX$$ measurement. If, rather than measuring $$X\otimesX\otimesX$$ on our qubits, we applied it as a sequence of gates. This will flip all three qubits of the GHZ state, and give the same state back but with a global minus sign. In other words, the GHZ state is a $$−1$$ eigenvector of a three-qubit Pauli operator $$X\otimesX\otimesX$$. This implies that $$XXX=−1$$ for each realization of the experiment.
+Even before we make the measurement, we can infer something about the results we'll get. For example, consider the $$XXX$$ measurement. If, rather than measuring $$X \otimes X \otimes X$$ on our qubits, we applied it as a sequence of gates. This will flip all three qubits of the GHZ state, and give the same state back but with a global minus sign. In other words, the GHZ state is a $$−1$$ eigenvector of a three-qubit Pauli operator $$X \otimes X \otimes X$$. This implies that $$XXX=−1$$ for each realization of the experiment.
 
-Next consider the Pauli operator $$X\otimesY\otimesY$$. One can check that the GHZ state is a $$+1$$ eigenvector of this. Therefore, $$XYY=1$$ for each realization of the experiment. Likewise, $$YXY=1$$, and $$YYX=1$$.
+Next consider the Pauli operator $$X\otimes Y\otimes Y$$. One can check that the GHZ state is a $$+1$$ eigenvector of this. Therefore, $$XYY=1$$ for each realization of the experiment. Likewise, $$YXY=1$$, and $$YYX=1$$.
 
 One can verify this by running the experiments using the circuits provided below. Here you can see the results we got when we ran this experiment on the processor:
 

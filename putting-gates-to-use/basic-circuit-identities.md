@@ -6,14 +6,14 @@ Many of the techniques discussed in this chapter where first proposed in [Barenc
 
 ### Making a CZ from a CX
 
-The controlled-Z  or `cz` gate is another well used two-qubit gate. Just as the `cx` applies an `x` to its target qubit whenever its control is in state $$|1\rangle$$, the `cz`applies a `z` in the same case. In QASM it can be invoked directly with
+The controlled-Z  or $$CX$$ gate is another well used two-qubit gate. Just as the controlled-NOT applies an $$X$$ to its target qubit whenever its control is in state $$|1\rangle$$, the controlled- $$Z$$ applies a $$Z$$ in the same case. In QASM it can be invoked directly with
 
 ```text
 \\ a controlled-Z
 cz q[c], q[t];
 ```
 
-Where `c` and `t` are the control and target qubits. But in IBMQ devices, the only kind of two-qubit gate that can be directly applied is the`cx`. We therefore need a way to transform one to the other.
+Where c and t are the control and target qubits. But in IBMQ devices, the only kind of two-qubit gate that can be directly applied is the controlled-NOT. We therefore need a way to transform one to the other.
 
 The process for this is quite simple. We know that the Hadamard has the effect
 
@@ -22,7 +22,7 @@ H X H = Z,\\
 H Z H = X.
 $$
 
-So all we need to do is precede and follow the CNOT with a Hadamard on the target qubit. This will transform any `x` that it applies on that qubit into a `z`.
+So all we need to do is precede and follow the CNOT with a Hadamard on the target qubit. This will transform any $$X$$ that it applies on that qubit into a $$Z$$ .
 
 ```text
 \\ also a controlled-Z
@@ -31,9 +31,9 @@ cx q[c], q[t];
 h q[t];
 ```
 
-The same trick can be used to transform a `cx` into a `cz`.
+The same trick can be used to transform a $$CX$$ into a $$CZ$$.
 
-More generally we can transform a single CX into a controlled version of any rotation around the Bloch sphere by an angle $$\pi$$ , by simply preceding and following it with the correct rotations. For example, a controlled-Y
+More generally we can transform a single controlled-NOT into a controlled version of any rotation around the Bloch sphere by an angle $$\pi$$ , by simply preceding and following it with the correct rotations. For example, a controlled-$$Y$$.
 
 ```text
 \\ a controlled-Y
@@ -60,7 +60,7 @@ Sometimes, we need to move information around in a quantum computer. For some wa
 swap q[a], q[b];
 ```
 
-This can be invoked directly using the command above, but let's see how we might make it using our standard gate set. For this, we'll need to consider a few examples.
+The command above directly invokes this gate, but let's see how we might make it using our standard gate set. For this, we'll need to consider a few examples.
 
  First, we'll look at the case that qubit a is in state $$|1\rangle$$ and qubit b is in state $$|0\rangle$$. For this we'll apply the following gates
 
@@ -94,9 +94,9 @@ cx q[b], q[a];
 
 We can think of this as a process that swaps a $$|1\rangle$$ from a to b, but with a useless `cx q[b], q[a]` at the beginning. We can also think of it as a process that swaps a $$|1\rangle$$ from b to a, but with a useless `cx q[b], q[a]` at the end. Either way, the result is a process that can do the swap both ways around.
 
-It also has the correct effect on the $$|00\rangle$$ state. This is symmetric, and so swapping the states should have no effect. Since the CX gates have no effect when their control qubits are $$|0\rangle$$, the process correctly does nothing.
+It also has the correct effect on the $$|00\rangle$$ state. This is symmetric, and so swapping the states should have no effect. Since the controlled-NOT gates have no effect when their control qubits are $$|0\rangle$$, the process correctly does nothing.
 
-The $$|11\rangle$$ state is also symmetric, and so needs a trivial effect from the swap. In this case, the first CX gate in the process above will cause the second to have no effect, and the third undoes the first. So the whole effect is indeed trivial.
+The $$|11\rangle$$ state is also symmetric, and so needs a trivial effect from the swap. In this case, the first controlled-NOT gate in the process above will cause the second to have no effect, and the third undoes the first. So the whole effect is indeed trivial.
 
 We have therefore found a way to decompose SWAP gates into our standard gate set of single qubit rotations and CX gates.
 
@@ -109,7 +109,7 @@ cx q[b], q[a];
 
 It works for the states $$|00\rangle$$, $$|01\rangle$$, $$|10\rangle$$ and$$|11\rangle$$, and so also for all superpositions of them. It therefore swaps all possible two qubit states.
 
-The same effect would also result if we changed the order of the CX gates
+The same effect would also result if we changed the order of the controlled-NOT gates
 
 ```text
 \\ swaps states of qubits a and b
@@ -118,9 +118,9 @@ cx q[a], q[b];
 cx q[b], q[a];
 ```
 
-This is an equally valid way to get the CX gate.
+This is an equally valid way to get the controlled-NOT gate.
 
-The derivation used here was very much based on the Z basis states, but it could also be done by thinking about what is required to swap qubits in states $$|+\rangle$$ and $$|-\rangle$$. The resulting ways of implementing the SWAP gate will be completely equivalent to the ones here.
+The derivation used here was very much based on the z basis states, but it could also be done by thinking about what is required to swap qubits in states $$|+\rangle$$ and $$|-\rangle$$. The resulting ways of implementing the SWAP gate will be completely equivalent to the ones here.
 
 ### Making the CXs we need from CXs we have
 
@@ -128,9 +128,9 @@ The gates in any quantum computer are driven by the physics of the underlying sy
 
 #### Changing the direction of a CNOT
 
-Let's deal with the second problem described above: If we have a `cx` with control qubit $$c$$ and target qubit $$t$$, how can we make one for which qubit $$t$$ acts as the control and qubit $$c$$ is the target?
+Let's deal with the second problem described above: If we have a controlled-NOT with control qubit $$c$$ and target qubit $$t$$, how can we make one for which qubit $$t$$ acts as the control and qubit $$c$$ is the target?
 
-This question would be very simple to answer for the `cz`. For this gate, it doesn't matter which way around the control and target qubits are. So
+This question would be very simple to answer for the controlled-$$Z$$. For this gate, it doesn't matter which way around the control and target qubits are. So
 
 ```text
 cz q[c], q[t];
@@ -152,11 +152,11 @@ $$
 
 We can think of this as multiplying the state by $$-1$$, but only when it is $$|1\rangle$$.
 
-For a CZ gate, the control qubit must be in state $$|1\rangle$$for a Z to be applied to the target qubit. Given the above property of Z, this only has an effect when the target is in state $$|1\rangle$$. We can therefore simply think of the CZ gate as one which multiplies the state of two qubits by $$-1$$, but only when they are in the state is $$|11\rangle$$.
+For a controlled-$$Z$$ gate, the control qubit must be in state $$|1\rangle$$for a $$Z$$ to be applied to the target qubit. Given the above property of $$Z$$, this only has an effect when the target is in state $$|1\rangle$$. We can therefore simply think of the controlled-$$Z$$ gate as one which multiplies the state of two qubits by $$-1$$, but only when they are in the state is $$|11\rangle$$.
 
 This new interpretation is phrased in a perfectly symmtric way, and so shows that the labels of 'control' and 'target' are not necessary for this gate.
 
-This property gives us a way to reverse the orientation of a `cx`. We can first turn the `cx` into a `cz` by using the method described earlier: placing an `h` both before and after on the target qubit.
+This property gives us a way to reverse the orientation of a controlled-NOT. We can first turn the controlled-NOT into a controlled-$$Z$$ by using the method described earlier: placing an `h` both before and after on the target qubit.
 
 ```text
 // a cz
@@ -165,7 +165,7 @@ cx q[c], q[t];
 h q[t];
 ```
 
-Then since we are free to choose which way around to think of the action of a `cz`, we can choose to simply start thinking of `t` as the control and `c` as the target. Then we can transform this `cz` into a corresponding `cx`. We just need to place an `h` both before and after on the target qubit \(which is now qubit `c`\).
+Then since we are free to choose which way around to think of the action of a controlled-$$Z$$, we can choose to simply start thinking of t as the control and c as the target. Then we can transform this controlled-$$Z$$ into a corresponding controlled-NOT. We just need to place a Hadamard both before and after on the target qubit \(which is now qubit c\).
 
 ```text
 // a cx with control qubit t and target qubit c
@@ -176,7 +176,7 @@ h q[t];
 h q[c];
 ```
 
-And there we have it: we've turned around the `cx`. All that is needed is an `h` on both qubits before and after.
+And there we have it: we've turned around the controlled-NOT. All that is needed is a Hadamard on both qubits before and after.
 
 The rest of this subsection is dedicated to another explantion of how to turn around a CX, with a bit more math and some different insight. Feel free to skip over it.
 
@@ -186,7 +186,7 @@ $$
 {\rm CX}_{c,t} = |0\rangle\langle0| \otimes I + |1\rangle\langle1| \otimes X.
 $$
 
-Here the $$|1\rangle\langle1|$$ ensures that the second term only affects those parts of a superposition for which the control qubit $$c$$ is in state $$|1\rangle$$. For those, the effect on the target qubit $$t$$  is $$X$$. The first terms similarly address those parts of the superposition for which the control qubit is in state $$|0\rangle$$, in which case it leaves the target qubit unaffected.
+Here the $$|1\rangle\langle1|$$ ensures that the second term only affects those parts of a superposition for which the control qubit c is in state $$|1\rangle$$. For those, the effect on the target qubit t is $$X$$. The first terms similarly address those parts of the superposition for which the control qubit is in state $$|0\rangle$$, in which case it leaves the target qubit unaffected.
 
 Now let's do a little maths. The $$X$$ gate has eigenvalues $$\pm 1$$ for the states $$|+\rangle$$ and $$|-\rangle$$. The $$I$$ gate has an eigenvalue of $$1$$ for all states including  $$|+\rangle$$ and $$|-\rangle$$. So we can write them in spectral form as
 
@@ -206,17 +206,17 @@ $$
 Z = |0\rangle\langle0| ~-~ |1\rangle\langle1|, ~~~ I = |0\rangle\langle0| ~+~ |1\rangle\langle1|.
 $$
 
-With these we can factorize the parts of the `cx` expressed with the  $$|0\rangle$$ and $$|1\rangle$$state,
+With these we can factorize the parts of the controlled-NOT expressed with the $$|0\rangle$$ and $$|1\rangle$$state,
 
 $$
 {\rm CX}_{c,t} = I \otimes |+\rangle\langle+| ~~+~~  Z \otimes |-\rangle\langle-|
 $$
 
-This gives us a whole new way to interpret the effect of the `cx`. The $$Z \otimes |-\rangle\langle-| $$ term addresses the parts of a superposition for which qubit t is in state $$|-\rangle$$ and then applies a $$Z$$ gate to qubit c. The other term similarly does nothing to qubit $$c$$ when qubit $$t$$ is in state $$|+\rangle.$$ 
+This gives us a whole new way to interpret the effect of the controlled-NOT. The $$Z \otimes |-\rangle\langle-| $$ term addresses the parts of a superposition for which qubit t is in state $$|-\rangle$$ and then applies a $$Z$$ gate to qubit c. The other term similarly does nothing to qubit $$c$$ when qubit $$t$$ is in state $$|+\rangle.$$ 
 
-In this new interpretation, it is qubit t that acts as the control. It is the $$|+\rangle$$ and $$|-\rangle$$states that decide whether an action is performed, and that action is the gate $$Z$$. This sounds like a quite different gate to our familar `cx`, and yet it is the `cx`. These are two equally true descriptions of its effects.
+In this new interpretation, it is qubit t that acts as the control. It is the $$|+\rangle$$ and $$|-\rangle$$states that decide whether an action is performed, and that action is the gate $$Z$$. This sounds like a quite different gate to our familar controlled-NOT, and yet it is the controlled-NOT. These are two equally true descriptions of its effects.
 
-Among the many uses of this property is the method to turn around a `cx`. For example, consider applying a Hadamard to qubit $$c$$ both before and after this `cx`
+Among the many uses of this property is the method to turn around a controlled-NOT. For example, consider applying a Hadamard to qubit c both before and after this controlled-NOT
 
 ```text
 h q[c];
@@ -226,15 +226,15 @@ h q[c];
 
 This transforms the $$Z$$ in the $$Z \otimes |-\rangle\langle-| $$ term into an $$X$$, and leaves the other term unchanged. The combined effect is then a gate that applies an $$X$$ to qubit c when qubit t is in state $$|-\rangle$$. This is halfway to what we are wanting to build.
 
-To complete the process, we can apply a Hadamard both before and after on qubit $$t$$. This transforms the $$|+\rangle$$ and $$|-\rangle$$ states in each term into $$|0\rangle$$ and $$|1\rangle$$. Now we have something that applies an $$X$$ to qubit c when qubit t is in state $$|1\rangle$$. This is exactly want we want: a `cx` in reverse, with qubit t as the control and c as the target.
+To complete the process, we can apply a Hadamard both before and after on qubit $$t$$. This transforms the $$|+\rangle$$ and $$|-\rangle$$ states in each term into $$|0\rangle$$ and $$|1\rangle$$. Now we have something that applies an $$X$$ to qubit c when qubit t is in state $$|1\rangle$$. This is exactly want we want: a controlled-NOT in reverse, with qubit t as the control and c as the target.
 
 #### CX between distant qubits
 
-Suppose we have a control qubit c and a target qubit t, and we want to do a CX gate between them. If this gate is directly possible on a device, we can just do it. If it's only possible to do the CX in the wrong direction, we can use the method explained above. But what if qubits c and t are not connected at all?
+Suppose we have a control qubit c and a target qubit t, and we want to do a controlled-NOT gate between them. If this gate is directly possible on a device, we can just do it. If it's only possible to do the controlled-NOT in the wrong direction, we can use the method explained above. But what if qubits c and t are not connected at all?
 
-If qubits c and t are on completely different devices in completely different labs in completely different countries, you may be out of luck. But consider the case where it is possible to do a CX between qubit c and an additional qubit a, and also allowed to do one between qubits a and t. The new qubit can then be used to mediate the interaction between c and t.
+If qubits c and t are on completely different devices in completely different labs in completely different countries, you may be out of luck. But consider the case where it is possible to do a controlled-NOT between qubit c and an additional qubit a, and also allowed to do one between qubits a and t. The new qubit can then be used to mediate the interaction between c and t.
 
-One way to do this is using the SWAP gate. We can simply SWAP a and t, do the CX between c and a, and then swap a and t back again. The end result is that we have effectively done a CX between c and t. The drawback of this method is that it costs a lot of CX gates, with six needed to implement the two SWAPs.
+One way to do this is using the SWAP gate. We can simply SWAP a and t, do the controlled-NOT between c and a, and then swap a and t back again. The end result is that we have effectively done a controlled-NOT between c and t. The drawback of this method is that it costs a lot of controlled-NOT gates, with six needed to implement the two SWAPs.
 
 Another method is to use the following sequence of gates.
 
@@ -250,15 +250,15 @@ To see how this works, first consider the case where qubit a is in state $$|0\ra
 
 If qubit a is in state $$|0\rangle$$, things are not quite so simple. The effect of the `cx q[c], q[a]` gates is to toggle the value of qubit a: it turns any $$|0\rangle$$ in the state of qubit a into $$|1\rangle$$ and back again, and vice-versa.
 
-This toggle effect affects the action of the two `cx q[a], q[t]` gates. It ensures that whenever one is controlled on a $$|0\rangle$$ and has trivial effect, the other is controlled on a $$|1\rangle$$ and applies an X to qubit t. The end effect is that qubit a is left unchanged, but qubit t will always have had an X applied to it.
+This toggle effect affects the action of the two `cx q[a], q[t]` gates. It ensures that whenever one is controlled on a $$|0\rangle$$ and has trivial effect, the other is controlled on a $$|1\rangle$$ and applies an $$X$$ to qubit t. The end effect is that qubit a is left unchanged, but qubit t will always have had an $$X$$ applied to it.
 
-Putting everything together, this means that an X is applied to qubit t only when qubit c is in state $$|1\rangle$$. Qubit a is left unaffected. We have therefore engineered a CX between qubits c and t. Unlike for the use of SWAP gates, this required only four CX gates to implement.
+Putting everything together, this means that an $$X$$ is applied to qubit t only when qubit c is in state $$|1\rangle$$. Qubit a is left unaffected. We have therefore engineered a controlled-NOT between qubits c and t. Unlike for the use of SWAP gates, this required only four controlled-NOT gates to implement.
 
-It is similarly possible to engineer CX gates when there is a longer chain of qubits required to connect our desired control and target. The methods described above simply need to be scaled up.
+It is similarly possible to engineer controlled-NOT gates when there is a longer chain of qubits required to connect our desired control and target. The methods described above simply need to be scaled up.
 
 ### Controlled rotations
 
-We have already seen how to build controlled $$\pi$$ rotations from a single CX gate. Now we'll look at how to build any controlled rotation.
+We have already seen how to build controlled $$\pi$$ rotations from a single controlled-NOT gate. Now we'll look at how to build any controlled rotation.
 
 First, let's consider arbitary rotations around the y axis. Specifically, consider the following sequence of gates \(recall that `u3(theta/2,0,0)` is the way to implement an $$R_y(\theta/2)$$ rotation in OpenQASM\).
 
@@ -271,7 +271,7 @@ cx q[c], q[t];
 
 If the control qubit is in state $$|0\rangle$$, all we have here is a `u3(theta/2,0,0)` immediately followed by its inverse, `u3(-theta/2,0,0)`. The end effect is trivial. If the control qubit is in state $$|1\rangle$$, however, the `u3(-theta/2,0,0)` is effectively preceded and followed by an X gate. This has the effect of flipping the direction of the y rotation and making a second `u3(theta/2,0,0)`. The net effect in this case is therefore to make a controlled version of the rotation $$R_y(\theta)$$ . 
 
-This method works because the x and y axis are orthogonal, which causes the x gates to flip the direction of the rotation. It therefore similarly works to make a controlled $$R_z(\theta)$$ . A controlled $$R_x(\theta)$$ could similarly be made using CX gates.
+This method works because the x and y axis are orthogonal, which causes the x gates to flip the direction of the rotation. It therefore similarly works to make a controlled $$R_z(\theta)$$ . A controlled $$R_x(\theta)$$ could similarly be made using  controlled-NOT  gates.
 
 We can also make a controlled version of any single qubit rotation, $$U$$. For this we simply need to find three rotations A, B and C and a phase $$\alpha$$ such that
 
@@ -279,7 +279,7 @@ $$
 ABC = I, ~~~e^{i\alpha}AXBXC = U
 $$
 
-We then use CX gates to cause the first of these relations to happen whenever the control is in state $$|0\rangle$$, and the second to happen when the control is state $$|1\rangle$$. An $$R_z(\alpha)$$ rotation is also used on the control to get the right phase, which will be important whenever there are superposition states.
+We then use  controlled-NOT  gates to cause the first of these relations to happen whenever the control is in state $$|0\rangle$$, and the second to happen when the control is state $$|1\rangle$$. An $$R_z(\alpha)$$ rotation is also used on the control to get the right phase, which will be important whenever there are superposition states.
 
 ```text
 a q[t];
@@ -292,7 +292,7 @@ u1(alpha) q[c];
 
 ![](../.gitbook/assets/zzzabc.png)
 
-Here a, b and c are gates that implement A, B and C, and must be defined via a subroutine. For example, if we wanted A to be $$R_x(\pi/4)$$, the subroutine would be defined as
+Here a, b and c are gates that implement $$A$$ , $$B$$ and $$C$$ , and must be defined via a subroutine. For example, if we wanted A to be $$R_x(\pi/4)$$, the subroutine would be defined as
 
 ```text
 gate a qubit
@@ -321,13 +321,13 @@ cv q[a], q[t];
 
 ![](../.gitbook/assets/zzzuv.png)
 
-By tracing through each value of the two control qubits, you can convince yourself that a Ugate is applied to the target qubit if and only if both controls are 1. Using ideas we have already described, you could now implement each controlled-Vgate to arrive at some circuit for the doubly-controlled-Ugate. It turns out that the minimum number of CNOT gates required to implement the Toffoli gate is 6 \[[Shende and Markov, 2009](http://dl.acm.org/citation.cfm?id=2011799)\].
+By tracing through each value of the two control qubits, you can convince yourself that a Ugate is applied to the target qubit if and only if both controls are 1. Using ideas we have already described, you could now implement each controlled-Vgate to arrive at some circuit for the doubly-controlled-Ugate. It turns out that the minimum number of controlled-NOT gates required to implement the Toffoli gate is 6 \[[Shende and Markov, 2009](http://dl.acm.org/citation.cfm?id=2011799)\].
 
 ![](../.gitbook/assets/zzzttt.png)
 
-The Toffoli is not th unique way to implement an AND gate with quantum computing. We could also define other gates that have the same effect, but which also introduce relative phases. In these cases, we can implement the gate with fewer CXs.
+The Toffoli is not th unique way to implement an AND gate with quantum computing. We could also define other gates that have the same effect, but which also introduce relative phases. In these cases, we can implement the gate with fewer controlled-NOTs.
 
-For example, suppose let's spend a CX to create a controlled-Hadamard.
+For example, suppose let's spend a controlled-NOT to create a controlled-Hadamard.
 
 ```text
 gate ch c, t
@@ -338,7 +338,7 @@ gate ch c, t
 }
 ```
 
-We'll also use the CZ gate, which costs the same as a CX, to implement the following circuit.
+We'll also use the controlled-$$Z$$ gate, which costs the same as acontrolled-NOT, to implement the following circuit.
 
 ```text
 ch q[a], q[t];
@@ -346,7 +346,7 @@ cz q[b], q[t];
 ch q[a], q[t];
 ```
 
-For the state $$|00\rangle$$ on the two controls, this does nothing to the target. For $$|11\rangle$$ the target experiences a Z gate that si both preceded and followed by an H. The net effect is an X on the target. For the states $$|01\rangle$$ and $$|10\rangle$$ the target experiences either just the two Hadamards \(which cancel each other out\) or just the Z \(which only induces a relative phase\). This therefore also reproduces the effect of an AND, because the value of the target is only changed for the $$|11\rangle$$ state on the controls. But it does it with the equivalent of just three CX gates.
+For the state $$|00\rangle$$ on the two controls, this does nothing to the target. For $$|11\rangle$$ the target experiences a $$Z$$ gate that si both preceded and followed by an H. The net effect is an$$X$$ on the target. For the states $$|01\rangle$$ and $$|10\rangle$$ the target experiences either just the two Hadamards \(which cancel each other out\) or just the $$Z$$ \(which only induces a relative phase\). This therefore also reproduces the effect of an AND, because the value of the target is only changed for the $$|11\rangle$$ state on the controls. But it does it with the equivalent of just three controlled-NOT gates.
 
 ### Arbitrary rotations from H and T
 
@@ -356,7 +356,7 @@ For large applications of quantum computers, it will be neccesary to encode our 
 
 This is unfortunate for the single qubit rotations  $$R_x(\theta)$$, $$R_y(\theta)$$ and $$R_z(\theta)$$. It is impossible to implent an angle $$\theta$$ with perfect accuracy, such that you are sure that you are not accidentally implementing something like $$\theta + 0.0000001$$. There will always be a limit to the accuracy we can achieve. This will always be larger than is tolarable for large circuits where the imperfections will build up. We will therefore not be able to implement these rotations directly in fault-tolerant quantum computers, but will instead need to build them in a much more deliberate manner.
 
-Fault-tolerant schemes typical perform these rotations using multiple applications of just two gates: H and T.
+Fault-tolerant schemes typical perform these rotations using multiple applications of just two gates: $$H$$ and $$T$$.
 
 The T gate can be expressed in OpenQASM as
 
@@ -366,7 +366,7 @@ t q[0]; // T gate on qubit 0
 
 It is a rotation around the z axis by $$\theta = \pi/4$$, and so be expressed mathematically as $$R_z(\pi/4) = e^{i\pi/4~Z}$$ .
 
-In the following we assume that the H and T gates are effectively perfect. This can be engineered by suitable methods for error correction and fault-tolerance.
+In the following we assume that the $$H$$ and $$T$$ gates are effectively perfect. This can be engineered by suitable methods for error correction and fault-tolerance.
 
 Using the Hadamard, and the methods discussed in the last chapter, we can use the T gate to create a similar rotation around the x axis.
 
@@ -410,9 +410,9 @@ h q[0];
 t q[0];
 ```
 
-The axis that corresponds to this rotation is not the same as that for the gate considered previously. We therefore now have arbitrary rotation around two axes, which can be used to generate any arbitrary rotation around the Bloch sphere. We are back to being able to do everything, though it costs quite a lot of T gates.
+The axis that corresponds to this rotation is not the same as that for the gate considered previously. We therefore now have arbitrary rotation around two axes, which can be used to generate any arbitrary rotation around the Bloch sphere. We are back to being able to do everything, though it costs quite a lot of $$T$$ gates.
 
-It is because of this kind of application that T gates are so prominent in quantum computation. In fact, the complexity of algorithms for fault-tolerant quantum computers is often quoted in terms of how many T gates they'll need. This motivates the quest to achieve things with a few T gates as possible. Note that the discussion above was simply intended to prove that T gates can be use in this way, and does not represent the most efficient method we know.
+It is because of this kind of application that $$T$$ gates are so prominent in quantum computation. In fact, the complexity of algorithms for fault-tolerant quantum computers is often quoted in terms of how many $$T$$ gates they'll need. This motivates the quest to achieve things with a few $$T$$ gates as possible. Note that the discussion above was simply intended to prove that $$T$$ gates can be use in this way, and does not represent the most efficient method we know.
 
 
 

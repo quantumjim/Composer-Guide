@@ -62,15 +62,13 @@ $$
 
 These give us $$|C| = 2\sqrt{2}$$, which is greater than 2.
 
-.
-
 To run this experiment with our hardware, we need the following quantum circuit and 4 measurements.             
 
                
 
 ![image7](https://dal.objectstorage.open.softlayer.com/v1/AUTH_039c3bf6e6e54d76b8e66152e2f87877/images-classroom/Screen%20Shot%202016-05-03%20at%201.15.27%20AMj7c275k02qyf1or.png)
 
-In the first part of the experiment, the qubits are initially prepared in the ground state $$\|00\rangle$$. The $$H$$ takes the first qubit to the equal superposition $$\(\|00\rangle+\|00\rangle\)/\sqrt{2}$$. The CNOT gate flips the second qubit if the first is in state $$\|1\rangle$$, making the state $$\(\|00\rangle+\|11\rangle\)/\sqrt{2}$$. This is the entangled state \(commonly called a _Bell state_\) required for this test. In OpenQASM
+In the first part of the experiment, the qubits are initially prepared in the ground state $$|00\rangle$$ . The $$H$$ takes the first qubit to the equal superposition $$(|00\rangle+|10\rangle)/\sqrt{2}$$ . The CNOT gate flips the second qubit if the first is in state $$|1\rangle$$ , making the state $$(|00\rangle+|11\rangle)/\sqrt{2}$$ . This is the entangled state \(commonly called a _Bell state_\) required for this test. In OpenQASM
 
 ```text
 \\ making a Bell state
@@ -78,7 +76,7 @@ h q[0]
 cx q[0], q[1];
 ```
 
- In the first experiment, the measurements are of the observable $$Z$$ and $$W = H$$. To rotate the measurement basis to the $$W$$ basis, we can use the following
+ In the first experiment, the measurements are of the observable $$Z$$ and $$W=H$$ . To rotate the measurement basis to the $$W$$ basis, we can use the following
 
 ```text
 \\ W measurement
@@ -89,7 +87,7 @@ h q[1];
 measure q[1] -> c[1];
 ```
 
-The correlator $$\langleZW\rangle$$ should be close to $$1/\sqrt{2}$$. The $$V$$ measurement is similarly performed with
+The correlator $$\langle ZW\rangle$$ should be close to $$1/\sqrt{2}$$ . The $$V$$ measurement is similarly performed with
 
 ```text
 \\ V measurement

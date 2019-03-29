@@ -18,7 +18,7 @@ $$
 
 To implement these gates in QASM, we use
 
-```text
+```c
 x q[0]; \\ x on qubit 0
 y q[0]; \\ x on qubit 0
 z q[0]; \\ x on qubit 0
@@ -40,7 +40,7 @@ Note that here we referred to these gates as $$X$$, $$Y$$and $$Z$$ and `x`, `y` 
 
 The Hadamard gate is one that we've already used. It's a key component in performing an x measurement
 
-```text
+```c
 // x measurement of qubit 0
 h q[0];
 measure q[0] -> c[0];

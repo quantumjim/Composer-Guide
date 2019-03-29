@@ -54,7 +54,7 @@ You have have noticed that a similar phase also arose in the effect of the $$S$$
 For multiple qubit Clifford gates, the defining property is that they transform tensor products of Paulis to other tensor products of Paulis. For example, the most prominent two qubit Clifford gate is the controlled-NOT. The property of this that we will make use of in this chapter is
 
 $$
-{\rm CX}_{1,2}~ (X \otimes 1)~{\rm CX}_{1,2} = X \otimes X.
+{ CX}_{1,2}~ (X \otimes 1)~{ CX}_{1,2} = X \otimes X.
 $$
 
 This effectively 'copies' an $$X$$ from the control qubit over to the target.
@@ -92,7 +92,7 @@ Certain examples of these rotations have specific names. Rotations by $$\theta =
 As another example of combing $$R_x(\theta)$$ with Cliffords, let's conjugate it with a controlled-NOT.
 
 $$
-CX_{1,2} ~(R_x(\theta) \otimes 1)~ CX_{1,2} = CX_{1,2} ~ e^{i \theta ~ (X\otimes 1)}~ CX_{1,2} = e^{i \theta ~CX_{1,2} ~ (X\otimes 1)~ CX_{1,2}} = e^{i \theta  ~ X\otimes X}
+CX_{1,2} ~(R_x(\theta) \otimes 1)~ CX_{1,2} = CX_{1,2} ~ e^{i \frac{\theta}{2} ~ (X\otimes 1)}~ CX_{1,2} = e^{i \frac{\theta}{2} ~CX_{1,2} ~ (X\otimes 1)~ CX_{1,2}} = e^{i \frac{\theta}{2}  ~ X\otimes X}
 $$
 
 This transforms our simple, single qubit rotation into a much more powerful two qubit gate. This is not just equivalent to performing the same rotation independently on both qubits. Instead, it is a gate capable of generating and manipulating entangled states.
@@ -102,13 +102,13 @@ We needn't stop there. We can use the same trick to extend the operation to to a
 Furthermore, we can use single qubit Cliffords to transform the Pauli on different qubits. For example, in our two qubit example we could conjugate by $$S$$ on the second qubit to turn the $$X$$ there into a $$Y$$ ,
 
 $$
-S ~e^{i \theta  ~ X\otimes X}~S^\dagger = e^{i \theta  ~ X\otimes Y}.
+S ~e^{i \frac{\theta}{2}  ~ X\otimes X}~S^\dagger = e^{i \frac{\theta}{2}  ~ X\otimes Y}.
 $$
 
 With these techniques, we can make complex entangling operations that act on any arbitrary number of qubits, of the form
 
 $$
-U = e^{i\theta ~ P_1\otimes P_2\otimes...\otimes P_n}, ~~~ P_j \in \{I,X,Y,Z\}.
+U = e^{i\frac{\theta}{2} ~ P_1\otimes P_2\otimes...\otimes P_n}, ~~~ P_j \in \{I,X,Y,Z\}.
 $$
 
 This all goes to show that combing the single and two qubit Clifford gates with rotations around the x axis gives us a powerful set of possibilities. It only remains to show that we can use them to do anything.

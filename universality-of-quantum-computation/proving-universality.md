@@ -6,7 +6,7 @@ $$
 U = e^{i(aX + bZ)}
 $$
 
-but the only gates we have are $$R_x(\theta) = e^{i \theta X}$$ and $$R_z(\theta) = e^{i \theta Z}$$ . The best way to solve this problem would be to use [Euler angles](https://en.wikipedia.org/wiki/Euler_angles). But let's instead consider a different method.
+but the only gates we have are $$R_x(\theta) = e^{i \frac{\theta}{2} X}$$ and $$R_z(\theta) = e^{i \frac{\theta}{2} Z}$$ . The best way to solve this problem would be to use [Euler angles](https://en.wikipedia.org/wiki/Euler_angles). But let's instead consider a different method.
 
 The Hermitian matrix in the exponential for $$U$$ is simply the sum of those for the $$R_x(\theta)$$ and $$R_z(\theta)$$ rotations. This suggests a naive approach to solving our problem: we could simply apply $$R_z(a)  = e^{i bZ}$$ followed by $$R_x(b)  = e^{i a X}$$. Unfortunately, because we are exponentiating matrices that do not commute, this apporach will not work. However, we could use the following modified version
 
