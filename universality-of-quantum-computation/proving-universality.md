@@ -28,7 +28,7 @@ $$
 U = e^{i(aX\otimes X\otimes X + bZ\otimes Z\otimes Z)}.
 $$
 
-We know how to create the unitary $$e^{i\theta X\otimes X\otimes X}$$ from a single qubit $$R_x(\theta)$$ and two controlled-NOTs.
+We know how to create the unitary $$e^{i\frac{\theta}{2} X\otimes X\otimes X}$$ from a single qubit $$R_x(\theta)$$ and two controlled-NOTs.
 
 ```text
 cx q[0],q[2];
@@ -38,7 +38,7 @@ cx q[0],q[1];
 cx q[0],q[2];
 ```
 
-With a few Hadamards, we can do the same for $$e^{i\theta Z\otimes Z\otimes Z}$$.
+With a few Hadamards, we can do the same for $$e^{i\frac{\theta}{2} Z\otimes Z\otimes Z}$$.
 
 ```text
 h q[0];

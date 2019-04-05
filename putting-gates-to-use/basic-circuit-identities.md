@@ -276,16 +276,16 @@ This method works because the x and y axis are orthogonal, which causes the x ga
 We can also make a controlled version of any single qubit rotation, $$U$$. For this we simply need to find three rotations A, B and C and a phase $$\alpha$$ such that
 
 $$
-ABC = I, ~~~e^{i\alpha}AXBXC = U
+ABC = I, ~~~e^{i\alpha}AZBZC = U
 $$
 
-We then use  controlled-NOT  gates to cause the first of these relations to happen whenever the control is in state $$|0\rangle$$, and the second to happen when the control is state $$|1\rangle$$. An $$R_z(\alpha)$$ rotation is also used on the control to get the right phase, which will be important whenever there are superposition states.
+We then use  controlled-Z gates to cause the first of these relations to happen whenever the control is in state $$|0\rangle$$, and the second to happen when the control is state $$|1\rangle$$. An $$R_z(2\alpha)$$ rotation is also used on the control to get the right phase, which will be important whenever there are superposition states.
 
 ```c
 a q[t];
-cx q[c], q[t];
+cz q[c], q[t];
 b q[t];
-cx q[c], q[t];
+cz q[c], q[t];
 c q[t];
 u1(alpha) q[c];
 ```
@@ -364,7 +364,7 @@ The T gate can be expressed in OpenQASM as
 t q[0]; // T gate on qubit 0
 ```
 
-It is a rotation around the z axis by $$\theta = \pi/4$$, and so be expressed mathematically as $$R_z(\pi/4) = e^{i\pi/4~Z}$$ .
+It is a rotation around the z axis by $$\theta = \pi/4$$, and so be expressed mathematically as $$R_z(\pi/4) = e^{i\pi/8~Z}$$ .
 
 In the following we assume that the $$H$$ and $$T$$ gates are effectively perfect. This can be engineered by suitable methods for error correction and fault-tolerance.
 

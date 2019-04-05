@@ -19,4 +19,5 @@
   * [Basic circuit identities](putting-gates-to-use/basic-circuit-identities.md)
   * [Entanglement and Bell Tests](putting-gates-to-use/entanglement-and-bell-tests.md)
   * [GHZ States](putting-gates-to-use/ghz-states.md)
+* [Where next?](where-next.md)
 
