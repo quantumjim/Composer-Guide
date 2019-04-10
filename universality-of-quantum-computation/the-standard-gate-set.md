@@ -14,7 +14,7 @@ This gate is expressed above using outer products, as desribed in the last secti
 
 This effect of the Hadamard is to move information around a qubit. It swaps any information that would previously be accessed by an x measurement with that accessed by a z measurement. Indeed, one of the most important jobs of the Hadamard is to do exactly this. We use it when wanting to make an x measurement, given that we can only physically make z measurements.
 
-```text
+```c
 // x measurement of qubit 0
 h q[0];
 measure q[0] -> c[0];
@@ -65,7 +65,7 @@ The process of sandwiching a matrix between a unitary and its Hermitian conjugat
 
 The Clifford gates are very important, but they are not powerful on their own. In order to do any quantum computation, we need gates that are not Cliffords. Three important examples are arbitrary rotations around the three axes of the qubit,   $$R_x(\theta)$$, $$R_y(\theta)$$ and  $$R_z(\theta)$$. These are implemented in QASM with
 
-```text
+```c
 u3(theta,pi/2,-pi/2); \\ rx rotation on qubit 0
 u3(theta,0,0) q[0];   \\ ry rotation on qubit 0
 u1(theta) q[0];       \\ rz rotation on qubit 0

@@ -2,7 +2,7 @@
 
 In the previous chapter we saw that there are multiple ways to extract an output from a qubit. The two methods we've used so far are the z and x measurements.
 
-```text
+```c
 // z measurement of qubit 0
 measure q[0] -> c[0];
 
@@ -202,7 +202,7 @@ Qubits in quantum circuits always start out in the state $$|0\rangle$$. By apply
 
 Try this out yourself using a single qubit, creating circuits using operations from the following list, and then doing the x and z measurements in the way described at the top of the page.
 
-```text
+```c
 h q[0]; \\ the hadamard
 
 x q[0]; \\ x gate
@@ -228,7 +228,7 @@ This is a version of Heisenberg's famous uncertainty principle. The $$(p^z_0-p^z
 
 The above is not actually entirely true, as you'll soon see by trying any of the operations below
 
-```text
+```c
 s q[0]; \\ the s gate
 
 sdg q[0]; \\ the inverse of the s gate
@@ -307,7 +307,7 @@ $$
 
 You can verify yourself that they both give random outputs for x and z measureemsnt. They are also orthogonal to each other. So they define a new measurement, and that basis is mutally unbiased with x and z. This is the third and final fundamental measurement for a single qubit. We call it the y measurement, and can implement it with
 
-```text
+```c
 // y measurement of qubit 0
 h q[0];
 sdg q[0];

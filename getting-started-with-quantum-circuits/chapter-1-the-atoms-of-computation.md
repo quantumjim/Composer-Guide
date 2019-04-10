@@ -251,7 +251,7 @@ We get `10`, which is the binary representation of the number 2. We have built a
 
 All that’s left is to try it out with the other three possible inputs, and show that our algorithm gives the right results for those too. Perhaps the easiest way to try this is to use the ‘QASM Editor’ rather than the graphical interface of the composer. Just paste in the following.
 
-```text
+```c
 include "qelib1.inc";
 qreg q[4];
 creg c[2];

@@ -24,7 +24,7 @@ $$
 
 So all we need to do is precede and follow the CNOT with a Hadamard on the target qubit. This will transform any $$X$$ that it applies on that qubit into a $$Z$$ .
 
-```text
+```c
 \\ also a controlled-Z
 h q[t];
 cx q[c], q[t];

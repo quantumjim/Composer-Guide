@@ -30,7 +30,7 @@ $$
 
 We know how to create the unitary $$e^{i\frac{\theta}{2} X\otimes X\otimes X}$$ from a single qubit $$R_x(\theta)$$ and two controlled-NOTs.
 
-```text
+```c
 cx q[0],q[2];
 cx q[0],q[1];
 u3(theta,pi/2,-pi/2) q[0];
@@ -40,7 +40,7 @@ cx q[0],q[2];
 
 With a few Hadamards, we can do the same for $$e^{i\frac{\theta}{2} Z\otimes Z\otimes Z}$$.
 
-```text
+```c
 h q[0];
 h q[1];
 h q[2];

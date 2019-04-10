@@ -64,7 +64,7 @@ To do this we need to measure the qubits. First, let’s do a z measurement of e
 
 If you want to follow along yourself, you can set up the above circuit using the graphical editor. Or you can simply copy the following into the QASM editor.
 
-```text
+```c
 include "qelib1.inc";
 qreg q[2];
 creg c[2];

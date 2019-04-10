@@ -83,7 +83,7 @@ $$
 
 They are therefore used as part of y measurements.
 
-```text
+```c
 // y measurement of qubit 0
 h q[0];
 sdg q[0];
@@ -100,7 +100,7 @@ The angle is expressed in radians, so the Pauli gates correspond to $$\theta=\pi
 
 In OpenQASM, these rotations can be implemented via the `u3` and `u1` gates.
 
-```text
+```c
 u3(theta,pi/2,-pi/2); \\ rx rotation on qubit 0
 u3(theta,0,0) q[0];   \\ ry rotation on qubit 0
 u1(theta) q[0];       \\ rz rotation on qubit 0
@@ -108,7 +108,7 @@ u1(theta) q[0];       \\ rz rotation on qubit 0
 
 Two specific examples of $$R_z(\theta)$$ have their own names: those for $$\theta=\pm \pi/4$$. These are the square roots of $$S$$, and are known as $$T$$ and $$T^\dagger$$.
 
-```text
+```c
 t q[0];   \\ t gate on qubit 0
 tdg q[0]; \\ t† on qubit 1
 ```
@@ -154,14 +154,14 @@ To create quantum algorithms that beat their classical counterparts, we need mor
 
 The most prominent multiqubit gates are the two qubit CNOT and the three qubit Toffoli. These have already been introduced in [The atoms of computation](../getting-started-with-quantum-circuits/chapter-1-the-atoms-of-computation.md). These essentially perform reversible versions of the classical XOR and AND gates, respectively.
 
-```text
+```c
 cx q[0],q[1];       \\ CNOT controlled on qubit 0 with qubit 1 as target
 ccx q[0],q[1],q[0]; \\ Toffoli controlled on qubits 0 and 1 with qubit 2 as target
 ```
 
 We can also interpret the CNOT as performing an $$X$$ on its target qubit, but only when it's control qubit is in state $$|1\rangle$$, and doing nothing when the control is in state $$|0\rangle$$. We can similarly define gates that work in the same way, but instead peform a $$Y$$ or $$Z$$ on the target qubit depending on the$$|0\rangle$$and $$|1\rangle$$ states of the control.
 
-```text
+```c
 cy q[0],q[1];  \\ controlled-Y, controlled on qubit 0 with qubit 1 as target
 cz q[0],q[1];  \\ controlled-Z, controlled on qubit 0 with qubit 1 as target
 ```
